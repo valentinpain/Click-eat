@@ -1,5 +1,9 @@
 <template>
-    <h1>Yo this is a test</h1>
+  <v-row>
+    <v-col class="mt-4" align="center" justify="center">
+        <h1>Test</h1>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

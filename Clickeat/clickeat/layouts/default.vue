@@ -1,13 +1,25 @@
 <template>
-  <v-app light>
+  <v-app app light>
     <v-main>
-      <v-toolbar app color="red white--text">
-        <h1>Free menus!</h1>
+      <v-toolbar app color="orange white--text">
+        <v-row no-gutters align="center">
+          <v-col>
+            <v-btn to="/" nuxt><h1 class="font-italic">Click'eat!</h1></v-btn>
+          </v-col>
+          <v-col>
+            <v-btn color="primary" to="/signin" nuxt>Créer un compte</v-btn>
+            <v-btn color="primary" to="/login" nuxt>Se connecter</v-btn>
+            <v-btn color="error" to="/panier" nuxt>Panier</v-btn>
+          </v-col>
+        </v-row>
       </v-toolbar>
+
       <v-container>
         <Nuxt />
       </v-container>
+
     </v-main>
+    
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
