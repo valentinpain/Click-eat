@@ -1,0 +1,7 @@
+{
+  "name": "API Articles DOC",
+  "version": "0.1.0",
+  "description": "Handles every behavior related to one article on the website.",
+  "title": "API DOC",
+  "url" : "https://api.github.com/v1"
+}
