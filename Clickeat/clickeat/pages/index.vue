@@ -42,10 +42,9 @@
 </template>
 
 <script>
-import Produit from '@/components/Produit.vue'
 
 export default {
-
+  name:"HomePage",
   data() {
     return {
       produits: [
