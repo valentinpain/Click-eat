@@ -2,19 +2,30 @@
   <v-app app light>
       <v-toolbar class="pb-10" color="#1D2951" style="height: 8%">
       <v-container fluid>
-        <v-row class="mt-9" no-gutters>
-          <v-col cols="undefined">
-            <v-btn fab class="ml-5">
-              <img src="../assets/Pictures/logo.png" alt="clickeat_logo" style="width: 20%;"/>
-            </v-btn>
+        <v-row class="mt-12 d-flex justify-space-around" no-gutters>
+          <v-col cols="2">
+            <v-btn
+              class="ml-15"
+              fab
+              dark
+              x-large
+              color="orange"
+            >
+            <v-icon style="width: 20%;" dark>
+              Click'eat!
+            </v-icon>
+          </v-btn>
           </v-col>
-          <v-col cols="6">
+          <v-col cols="7">
             <form>
               <input placeholder="Une envie particulière ?" type="text" class="white rounded-pill px-5 py-3 text-h6 search_bar" style="width: 90%;"/>
             </form>
           </v-col>
-          <v-col cols="undefined">
-            <v-btn class="white--text font-weight-bold" color="#FFc045" to="/panier" nuxt>Panier</v-btn>
+          <v-col cols="1" class="mt-2">
+            <v-btn class="pink rounded-lg px-2 py-1">
+              <img src="../assets/Pictures/cart.png" alt="cart_logo" style="width: 5%;" />
+              <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" style="width: 5%;" />
+            </v-btn>
           </v-col>
         </v-row>
         </v-container>
