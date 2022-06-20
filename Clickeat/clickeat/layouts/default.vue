@@ -79,12 +79,12 @@
       </v-col>
       <v-col class="mb-3 p-0">
         <h2 class="font-weight-bold text-h5 mb-5">L'HEURE C'EST L'HEURE</h2>
-        <p>L'ensemble de notre service est disponible 24/24 et 7/7 pour répondre à votre estomac <span style="width: 200%;">🍱</span></p>
+        <p>L'ensemble de notre service est disponible 24h/24 et 7j/7 pour répondre à votre estomac <span style="width: 200%;">🍱</span></p>
       </v-col>
       <v-col class="mb-3 p-0">
         <h2 class="font-weight-bold text-h5 mb-5">AFFILIATION</h2>
         <NuxtLink class="font-weight-bold white--text" to="/affiliation" style="text-underline-offset: 7%">Comment fonctionne le parrainage ?</NuxtLink><br/>
-        <NuxtLink class="font-weight-bold white--text" to="/partner" style="text-underline-offset: 7%">Devenir partenaire</NuxtLink><br/>
+        <NuxtLink class="font-weight-bold white--text" to="/testons" style="text-underline-offset: 7%">Devenir partenaire</NuxtLink><br/>
       </v-col>
       <v-col class="mb-5 p-0">
         <h2 class="font-weight-bold text-h5 mb-5">NAVIGATION</h2>

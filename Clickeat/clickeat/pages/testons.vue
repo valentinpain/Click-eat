@@ -5,10 +5,7 @@
         <v-card style="max-width: 40rem">
           <v-col class="mt-4" align="center" justify="center">
             <h1>Inscription</h1>
-            <v-text-field
-              label="Nom"
-              :rules="nameRules"
-              required>
+            <v-text-field label="Nom" :rules="nameRules" required>
             </v-text-field>
             <v-text-field
               label="Prénom"
@@ -27,11 +24,19 @@
                   required type="tel"
                 </v-text-field>
               </v-col>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="4">
                 <v-select
                   :items="Pays"
                   :rules="rules.Pays"
                   label="Pays"
+                  required
+                ></v-select>
+              </v-col>
+              <v-col >
+                <v-select
+                  :items="role"
+                  :rules="rules.role"
+                  label="Qui etes-vous?"
                   required
                 ></v-select>
               </v-col>
@@ -74,8 +79,9 @@
               color="success"
               class="mr-4"
               @click="validate"
+              v-on:click="update()"
             >
-              Connexion
+              Inscrire
             </v-btn>
           </v-col>
         </v-card>
@@ -121,6 +127,7 @@ export default {
         min: (v) => v.length >= 8 || 'Min 8 characters',
       },
       Pays: ['France'],
+      role: ['Client','Livreur','Restaurateur'],
       value: 30,
       rulesAge: [(v) => v > 16 || '16 ans minimum'],
       conditions: false,
@@ -128,16 +135,30 @@ export default {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
       terms: false,
       email: '',
-          nameRules: [
-      v => !!v || 'Required',
-    ],
+      nameRules: [(v) => !!v || 'Required'],
       emailRules: [
         (v) => !!v || 'E-mail is required',
         (v) => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
-      
+
+      el: '#app',
+      dataa() {
+        return {
+          info: null,
+        }
+      },
+      mounted() {
+        axios
+          .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+          .then((response) => (this.info = response))
+      },
     }
   },
+  methods:{
+    update(){
+      axios.post()
+    }
+  }
 }
 </script>
 
