@@ -1,8 +1,8 @@
 <template>
   <div class="Background">
     <div>
-      <h1 class="display-1" justify="center" align="center">Commandez!</h1>
-      <h2 justify="center" align="center">Produits disponibles</h2>
+      <h1 class="display-1" justify="center">Commandez!</h1>
+      <h2 justify="center">Produits disponibles</h2>
       <v-container class="grey lighten-5 mb-6">
         <v-row :align="align" no-gutters style="height: 60px">
           <v-col
