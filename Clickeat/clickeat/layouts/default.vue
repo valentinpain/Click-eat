@@ -22,10 +22,36 @@
             </form>
           </v-col>
           <v-col cols="1" class="mt-2">
-            <v-btn class="pink rounded-lg px-2 py-1">
-              <img src="../assets/Pictures/cart.png" alt="cart_logo" style="width: 5%;" />
-              <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" style="width: 5%;" />
-            </v-btn>
+            <div style="position: relative; display: inline-block;" @click="displayCart">
+                <v-btn class="pink rounded-lg px-2 py-1">
+                  <img src="../assets/Pictures/cart.png" alt="cart_logo" style="width: 5%;" />
+                  <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" style="width: 5%;" />
+                </v-btn>
+                <div id="cart" class="dropdown-content white" style="display: none; position: absolute; z-index: 1; width: 100%;">
+                  <ul v-if="$store.getters.getCart.length != 0" style="list-style: none">
+                    <li v-for="(article, index) in $store.getters.getCart" :key="index" class="white">
+                      <v-row class="mt-2">
+                        <v-col>
+                          <p class="font-weight-bold font-italic text-center text-h5">{{ article.name }}</p>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col>
+                          <p class="orange--text text-h5 font-weight-bold">{{ article.price + '€'}}</p>
+                        </v-col>
+                        <v-col>
+                          <v-btn @click="removeArticle(article, index)">
+                            <v-icon color="red" large>
+                              mdi-delete
+                            </v-icon>
+                          </v-btn>
+                        </v-col>
+                        <hr style="border-top: 5px solid purple;" />
+                      </v-row>
+                    </li>
+                  </ul>
+                </div>
+            </div>
           </v-col>
         </v-row>
         </v-container>
@@ -97,7 +123,27 @@ export default {
             title: "Vuetify.js",
         };
     },
+      watch: {
+        cart(newValue) {
+          this.$store.commit("addArticle", newValue)
+        }
+      },
     methods: {
+      displayCart(){
+        const elementState = document.getElementById('cart').style.display
+
+        if(elementState === 'block'){
+          document.getElementById('cart').style.display = 'none'
+        } else {
+          document.getElementById('cart').style.display = 'block'
+        }
+      },
+
+      removeArticle(article, index){
+        this.$store.commit("removeArticle", index)
+        this.$axios.delete('http://localhost:8000/articles/cart/delete/' + article._id).then(function (){
+        })
+      }
     },
 }
 </script>

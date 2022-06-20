@@ -32,11 +32,12 @@
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
                         <h2 class="font-weight-black text-h5">{{dish.name}}</h2>
-                        <v-btn
+                        <v-btn 
                           class="mx-2"
                           fab
                           dark
                           color="red"
+                          @click="sendArticleToCart(dish)"
                         >
                           <v-icon dark>
                             mdi-plus
@@ -72,6 +73,7 @@
                           fab
                           dark
                           color="red"
+                          @click="sendArticleToCart(sideDish)"
                         >
                           <v-icon dark>
                             mdi-plus
@@ -107,6 +109,7 @@
                           fab
                           dark
                           color="red"
+                          @click="sendArticleToCart(sauce)"
                         >
                           <v-icon dark>
                             mdi-plus
@@ -142,6 +145,7 @@
                           fab
                           dark
                           color="red"
+                          @click="sendArticleToCart(drink)"
                         >
                           <v-icon dark>
                             mdi-plus
@@ -214,7 +218,10 @@ export default {
   },
   methods: {
     sendArticleToCart(article){
-      this.$axios.post('', article).then(response => console.log(response))
+      // service vue js
+      this.$axios.post('http://localhost:8000/articles/cart/create/1', article).then(response => {
+        this.$store.commit("addArticle", response.data)
+        })
     }
   }
 }

@@ -7,6 +7,11 @@ bddConnect("articles");
 
 const cartSchema = new Schema<ICart>({
 	name: {type: String, required: true},
+	type: {type: String, required: true},
+	brand: {type: String, require: true},
+	price: {type: Number, required: true},
+	menuId: {type: Schema.Types.ObjectId, required: true},
+	imagePath: {type: String, required: true},
 	user_id: {type: Number, required: true}
 });
 

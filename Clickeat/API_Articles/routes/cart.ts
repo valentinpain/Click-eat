@@ -24,12 +24,12 @@ cartRouter.get('/:user_id', function(req: express.Request, res: express.Response
  * @apiParam {Number}  user_id The id of the user involved.
  */
 cartRouter.post('/create/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  new CartArticle({name: req.body.name, user_id: req.params.user_id}).save((err: any) => {
+  new CartArticle({name: req.body.name, type: req.body.type, brand: req.body.brand, price: req.body.price, menuId: req.body.menuId, imagePath: req.body.imagePath, user_id: req.params.user_id}).save((err: any, data: any) => {
       if (err) {
         res.status(404).send("Erreur")
       }
       else {
-        res.send("Création réussie !")
+        res.send(data)
       }
     })
 })
