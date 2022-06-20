@@ -10,6 +10,7 @@
               dark
               x-large
               color="orange"
+              to="/"
             >
             <v-icon style="width: 20%;" dark>
               Click'eat!
@@ -21,6 +22,7 @@
               <input placeholder="Une envie particulière ?" type="text" class="white rounded-pill px-5 py-3 text-h6 search_bar" style="width: 90%;"/>
             </form>
           </v-col>
+          
           <v-col cols="1" class="mt-2">
             <div style="position: relative; display: inline-block;" @click="displayCart">
                 <v-btn class="pink rounded-lg px-2 py-1">
