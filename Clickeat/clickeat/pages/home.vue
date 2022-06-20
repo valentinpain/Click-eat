@@ -29,7 +29,7 @@
               <p padding-top:20px>{{ produit.nom }}</p>
               <v-row justify="space-between">
                 <v-col >
-                  <v-btn color="#53DD6C" to="" nuxt>Commander</v-btn>
+                  <v-btn color="#53DD6C" to="/restaurant" nuxt>Commander</v-btn>
                 </v-col>
                 <v-col align="right" style="right"> <p>{{produit.note}}/5</p> </v-col>
               </v-row>
