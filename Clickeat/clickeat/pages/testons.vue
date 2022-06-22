@@ -5,7 +5,12 @@
         <v-card style="max-width: 40rem">
           <v-col class="mt-4" align="center" justify="center">
             <h1>Inscription</h1>
-            <v-text-field label="Nom" :rules="nameRules" required>
+            <v-text-field
+              label="Nom"
+              v-model="name"
+              :rules="nameRules"
+              required
+            >
             </v-text-field>
             <v-text-field
               label="Prénom"
@@ -32,9 +37,10 @@
                   required
                 ></v-select>
               </v-col>
-              <v-col >
+              <v-col>
                 <v-select
-                  :items="role"
+                v-model="role"
+                  :items="roles"
                   :rules="rules.role"
                   label="Qui etes-vous?"
                   required
@@ -63,7 +69,7 @@
               @click:append="show1 = !show1"
             ></v-text-field>
 
-            <v-checkbox color="green" rules>
+            <v-checkbox color="green">
               <template v-slot:label>
                 <div @click.stop="">
                   Do you accept the
@@ -74,13 +80,7 @@
               </template>
             </v-checkbox>
 
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              class="mr-4"
-              @click="validate"
-              v-on:click="update()"
-            >
+            <v-btn color="success" class="mr-4" v-on:click="signUp">
               Inscrire
             </v-btn>
           </v-col>
@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'LoginPage',
   data() {
@@ -127,38 +128,72 @@ export default {
         min: (v) => v.length >= 8 || 'Min 8 characters',
       },
       Pays: ['France'],
-      role: ['Client','Livreur','Restaurateur'],
+      roles: ['Client', 'Livreur', 'Restaurateur'],
       value: 30,
       rulesAge: [(v) => v > 16 || '16 ans minimum'],
       conditions: false,
       content:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
       terms: false,
-      email: '',
       nameRules: [(v) => !!v || 'Required'],
       emailRules: [
         (v) => !!v || 'E-mail is required',
         (v) => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
 
-      el: '#app',
-      dataa() {
-        return {
-          info: null,
-        }
-      },
-      mounted() {
-        axios
-          .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-          .then((response) => (this.info = response))
-      },
+      name: '',
+      email: '',
+      password: '',
+      role:'',
     }
   },
-  methods:{
-    update(){
-      axios.post()
-    }
-  }
+  methods: {
+    signUp() {
+      let temp
+      if (this.role == 'Client') {
+        temp = 1
+      }
+
+      else if (this.role == 'Livreur') {
+        temp = 2
+      }
+      else if (this.role == 'Restaurateur') {
+        temp = 3
+      }
+      var axios = require('axios')
+      var data = JSON.stringify({
+        email_user: this.email,
+        password_user: this.password,
+        id_role: temp,
+      })
+
+      var config = {
+        method: 'post',
+        url: 'http://localhost:8000/user',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      }
+      axios(config)
+        .then(function (response) {
+          if (
+            response.data ==
+            'Password or email cannot be empty. Or email is already used'
+          ) {
+            alert('Password or email cannot be empty. Or email is already used')
+          }
+          else {
+            alert('Vous êtes bien inscris')
+          }
+          console.log(JSON.stringify(response.data))
+        })
+        
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+  },
 }
 </script>
 
