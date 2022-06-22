@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 interface IAvailable {
   user: Object;
   articles: Array<Object>;
-  restaurant: Object;
+  validated: Boolean;
 }
 
 export default IAvailable

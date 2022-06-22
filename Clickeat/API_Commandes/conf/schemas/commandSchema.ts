@@ -7,8 +7,8 @@ bddConnect("commands");
 
 const commandSchema = new Schema<IAvailable>({
 	user: {type: Object, required: true},
-	articles: [{type: Object, require: true}],
-	restaurant: {type: Object, required: true},
+	articles: [{type: Object, required: true}],
+	validated: {type: Boolean, required: true}
 });
 
 const commandModel = model('commands', commandSchema);

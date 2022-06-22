@@ -53,8 +53,8 @@
                     </li>
                     <li class="text-h5 font-weight-bold font-italic purple--text mt-2">TOTAL {{ totalCart()}} €</li>
                     <hr style="border-top: 3px solid black;" />
-                    <v-btn class="mt-3" style="height: 7%" to="/commande">
-                      <p class="text-wrap text-center green--text font-italic font-weight-bold text-h5 mt-3">VALIDER LA <br />COMMANDE</p>
+                    <v-btn class="mt-3" style="height: 7%" @click="createCommand()">
+                      <p class="text-wrap text-center green--text font-italic font-weight-bold text-h5 mt-3">MA COMMANDE</p>
                     </v-btn>
                   </ul>
                   <div v-else>
@@ -131,6 +131,7 @@ export default {
             right: true,
             rightDrawer: false,
             title: "Vuetify.js",
+            command: null,
         };
     },
       watch: {
@@ -163,6 +164,19 @@ export default {
         });
 
         return sum;
+      },
+      createCommand() {
+        this.command = {
+          user: {
+            _id: 1,
+            name: "test"
+          },
+          articles: this.$store.getters.getCart,
+          validated: false
+        }
+
+        this.$axios.post('http://localhost:8001/commands/create', this.command)
+        window.location.href = "http://localhost:3000/commande"
       }
     },
 }

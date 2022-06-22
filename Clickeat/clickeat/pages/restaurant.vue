@@ -222,7 +222,7 @@ export default {
       this.$axios.post('http://localhost:8000/articles/cart/create/1', article).then(response => {
         this.$store.commit("addArticle", response.data)
         })
-    }
+    },
   }
 }
 </script>
