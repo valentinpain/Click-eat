@@ -9,7 +9,7 @@ commandRouter.get('/user/:user_id', function(req: express.Request, res: express.
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
 
     Command.find({"user._id": id}, (err: Error, data: any) => {
-    if (err) console.log(err)
+    if (err) res.send(err)
     else {
       res.send(data)
     }
