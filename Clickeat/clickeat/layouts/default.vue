@@ -167,12 +167,10 @@ export default {
       },
       createCommand() {
         this.command = {
-          user: {
-            _id: 1,
-            name: "test"
-          },
+          userId: 1,
           articles: this.$store.getters.getCart,
-          validated: false
+          validated: "En cours",
+          date: new Date()
         }
 
         this.$axios.post('http://localhost:8001/commands/create', this.command)
