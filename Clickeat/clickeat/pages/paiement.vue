@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     createDelivery(){
-      this.$axios.post('http://localhost:8002/deliveries/create', {command: this.command, status: "idle", address: "2 rue des dev"})
+      this.$axios.post('http://localhost:8002/deliveries/create', {command: this.command, status: "new", address: "2 rue des dev"})
       window.location.href = "http://localhost:3000/livraison"
     },
     totalCart(){

@@ -28,6 +28,18 @@ deliveryRouter.get('/accepted/', function(req: express.Request, res: express.Res
     });
   });
 
+  /* GET gets the latest delivery of an user. */
+deliveryRouter.get('/new/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
+
+    Delivery.find({"command.user._id": id, status: "new"}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
 /* GET gets every "idle" delivery in the database. */
 deliveryRouter.get('/idle', function(req: express.Request, res: express.Response, next: express.NextFunction) {
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)

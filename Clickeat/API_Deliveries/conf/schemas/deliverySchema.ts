@@ -7,7 +7,7 @@ bddConnect("deliveries");
 
 const deliverySchema = new Schema<IDelivery>({
 	command: {type: Object, required: true},
-	status: [{type: String, require: true}],
+	status: {type: String, require: true},
 	address: {type: String, required: true},
 });
 
