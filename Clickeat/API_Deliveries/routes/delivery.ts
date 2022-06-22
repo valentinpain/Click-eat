@@ -76,6 +76,18 @@ deliveryRouter.get('/delivered/:user_id', function(req: express.Request, res: ex
     });
   });
 
+  /* GET gets every delivery in the database of an user. */
+deliveryRouter.get('/user/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
+
+    Delivery.find({"command.user._id": id}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
 /* POST creates a new delivery for a user. */
 deliveryRouter.post('/create', function(req: express.Request, res: express.Response, next: express.NextFunction) {
   new Delivery({command: req.body.command, status: req.body.status, address: req.body.address}).save((err: any) => {
