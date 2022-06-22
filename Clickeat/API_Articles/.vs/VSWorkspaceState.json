@@ -2,10 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\bin",
-    "\\controller",
-    "\\model",
+    "\\conf",
+    "\\docs",
+    "\\public",
     "\\routes"
   ],
-  "SelectedNode": "\\routes\\AuthDB.js",
+  "SelectedNode": "\\bin\\www.ts",
   "PreviewInSolutionExplorer": false
 }

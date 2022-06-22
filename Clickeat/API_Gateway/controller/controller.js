@@ -1,8 +1,11 @@
-const axios = require('axios').default.create({ validateStatus: () => true });
+const axios = require('axios').default.create({ validateStatus: () => true })
+const reg = require('../registry.json')
+const perm = require('../permissions.json')
 const jwt = require('jsonwebtoken');
 const usedToken = require('../model/usedToken')
 const bdd = require("../bdd")
 const moment = require('moment');
+const { log } = require('debug');
 exports.userCreate = async (req, res) => {
     try {
         const email = req.body.email_user
@@ -120,6 +123,31 @@ exports.logout = async (req, res) => {
     }
     catch (e) {
         console.info(e)
+        res.status(400).send(e)
+    }
+}
+
+exports.transfer = async (req, res) => {
+    try {
+        console.log(perm[req.body.id_role][req.params.apiName])
+        console.log(req.method)
+        console.log(perm[req.body.id_role][req.params.apiName].methods?.find(method =>method === req.method))
+        if (perm[req.body.id_role][req.params.apiName].methods?.find(method => method === req.method) ) {
+
+            console.log("ok")
+
+            const response = await axios({
+                url: reg.service[req.params.apiName].url,
+                method: req.method,
+                data: req.body
+            })
+            res.status(response.status).send(response.data)
+        }
+        else {
+            res.status(403).send({result:false,message:'Forbidden'})
+        }
+    }
+    catch (e) {
         res.status(400).send(e)
     }
 }

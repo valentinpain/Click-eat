@@ -12,7 +12,7 @@ import http from 'http';
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(process.env.PORT || '8001');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
