@@ -88,7 +88,10 @@ export default {
 
   googleFonts: {
   families: {
-    Yantramanav: true,
+    Yantramanav: {
+      wght: [100, 400],
+      ital: [100]
+    },
     }
   }
 }

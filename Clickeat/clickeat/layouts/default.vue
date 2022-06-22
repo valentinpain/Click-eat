@@ -48,10 +48,18 @@
                             </v-icon>
                           </v-btn>
                         </v-col>
-                        <hr style="border-top: 5px solid purple;" />
+                        <hr style="border-top: 3px solid black;" />
                       </v-row>
                     </li>
+                    <li class="text-h5 font-weight-bold font-italic purple--text mt-2">TOTAL {{ totalCart()}} €</li>
+                    <hr style="border-top: 3px solid black;" />
+                    <v-btn class="mt-3" style="height: 7%" to="/commande">
+                      <p class="text-wrap text-center green--text font-italic font-weight-bold text-h5 mt-3">VALIDER LA <br />COMMANDE</p>
+                    </v-btn>
                   </ul>
+                  <div v-else>
+                    <p class="font-italic font-weight-bold text-h6 ml-1">Votre panier est vide</p>
+                  </div>
                 </div>
             </div>
           </v-col>
@@ -145,6 +153,16 @@ export default {
         this.$store.commit("removeArticle", index)
         this.$axios.delete('http://localhost:8000/articles/cart/delete/' + article._id).then(function (){
         })
+      },
+
+      totalCart(){
+        let sum = 0;
+        
+        this.$store.getters.getCart.forEach(article => {
+          sum += article.price; 
+        });
+
+        return sum;
       }
     },
 }
