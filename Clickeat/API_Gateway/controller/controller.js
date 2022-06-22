@@ -129,17 +129,14 @@ exports.logout = async (req, res) => {
 
 exports.transfer = async (req, res) => {
     try {
-        console.log(perm[req.body.id_role][req.params.apiName])
-        console.log(req.method)
-        console.log(perm[req.body.id_role][req.params.apiName].methods?.find(method =>method === req.method))
+        
         if (perm[req.body.id_role][req.params.apiName].methods?.find(method => method === req.method) ) {
-
-            console.log("ok")
-
+        
             const response = await axios({
-                url: reg.service[req.params.apiName].url,
+                url: reg.service[apiName].url,
                 method: req.method,
-                data: req.body
+                data: req.body,
+                params: {brand:'McDonalds'}
             })
             res.status(response.status).send(response.data)
         }
@@ -148,6 +145,6 @@ exports.transfer = async (req, res) => {
         }
     }
     catch (e) {
-        res.status(400).send(e)
+        res.status(400).send({ Error:e })
     }
 }

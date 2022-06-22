@@ -1,5 +1,10 @@
 {
   "1": {
-    "UserAccount": { "methods":[ "GET", "DELETE","POST","UPDATE" ] }
+    "UserAccount": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "UserData": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Commands": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Cart": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Articles": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Menu": { "methods": [ "GET", "DELETE", "POST", "PUT" ] }
   }
 }
