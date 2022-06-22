@@ -9,8 +9,8 @@ let menuRouter = express.Router();
  * @api {get} http://localhost:8000/:menu_id Gets all articles from a specific menu.
  * @apiParam {Number} menu_id The id of the menu involved.
  */ 
-menuRouter.get('/:menu_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.menu_id)
+menuRouter.get('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.menu_id)
 
   menuArticle.aggregate([{
     $lookup: {
@@ -31,7 +31,7 @@ menuRouter.get('/:menu_id', function(req: express.Request, res: express.Response
 /**
  * @api {post} http://localhost:8000/create Creates an new menu.
  */ 
-menuRouter.post('/create/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+menuRouter.post('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
   new menuArticle({name: req.body.name, price: req.body.price}).save((err: any) => {
       if (err) {
         res.status(404).send("Erreur")
@@ -46,8 +46,8 @@ menuRouter.post('/create/', function(req: express.Request, res: express.Response
  * @api {put} http://localhost:8000/update/:menu_id Updates a specific menu.
  * @apiParam {Number} menu_id The id of the menu involved.
  */ 
-menuRouter.put('/update/:menu_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.menu_id)
+menuRouter.put('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.menu_id)
 
   menuArticle.findByIdAndUpdate(id, {name: req.body.name, price: req.body.price}, function (err: Error, result: any) {
     if(err) {
@@ -63,8 +63,8 @@ menuRouter.put('/update/:menu_id', function(req: express.Request, res: express.R
  * @api {delete} http://localhost:8000/delete/:menu_id Deletes a specific menu.
  * @apiParam {Number} menu_id The id of the menu involved.
  */ 
-menuRouter.delete('/delete/:menu_id', function(req: express.Request, res: express.Response, next: express.NextFunction){
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params._id)
+menuRouter.delete('/', function(req: express.Request, res: express.Response, next: express.NextFunction){
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body._id)
 
     menuArticle.deleteOne(id, function (err: Error, result: any) {
       if(err) {

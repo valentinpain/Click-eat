@@ -133,7 +133,7 @@ exports.transfer = async (req, res) => {
         if (perm[req.body.id_role][req.params.apiName].methods?.find(method => method === req.method) ) {
         
             const response = await axios({
-                url: reg.service[apiName].url,
+                url: reg.service[req.params.apiName].url,
                 method: req.method,
                 data: req.body,
                 params: {brand:'McDonalds'}

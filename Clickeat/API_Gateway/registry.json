@@ -20,15 +20,27 @@
     },
     "Cart": {
       "host": "http://localhost",
-      "apiName": "Commands",
+      "apiName": "articles/cart",
       "port": 5000,
       "url": "http://localhost:5000/articles/cart"
     },
+    "CartData": {
+      "host": "http://localhost",
+      "apiName": "articles/cart/all",
+      "port": 5000,
+      "url": "http://localhost:5000/articles/cart/all"
+    },
     "Articles": {
       "host": "http://localhost",
-      "apiName": "Commands",
+      "apiName": "articles/available",
       "port": 5000,
       "url": "http://localhost:5000/articles/available"
+    },
+    "ArticlesData": {
+      "host": "http://localhost",
+      "apiName": "articles/available/all",
+      "port": 5000,
+      "url": "http://localhost:5000/articles/available/all"
     },
     "Menu": {
       "host": "http://localhost",
