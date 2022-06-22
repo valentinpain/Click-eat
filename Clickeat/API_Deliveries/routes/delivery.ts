@@ -16,6 +16,42 @@ deliveryRouter.get('/accepted/:user_id', function(req: express.Request, res: exp
     });
   });
 
+  /* GET gets every "accepted" delivery in the database. */
+deliveryRouter.get('/accepted/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
+
+    Delivery.find({status: "accepted"}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
+  /* GET gets the latest delivery of an user. */
+deliveryRouter.get('/new/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
+
+    Delivery.find({"command.user._id": id, status: "new"}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
+/* GET gets every "idle" delivery in the database. */
+deliveryRouter.get('/idle', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
+
+    Delivery.find({status: "idle"}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
 /* GET gets every "idle" delivery in the database of an user. */
 deliveryRouter.get('/idle/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
@@ -33,6 +69,18 @@ deliveryRouter.get('/delivered/:user_id', function(req: express.Request, res: ex
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
 
     Delivery.find({"command.user._id": id, status: "delivered"}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
+  /* GET gets every delivery in the database of an user. */
+deliveryRouter.get('/user/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
+
+    Delivery.find({"command.user._id": id}, (err: Error, data: any) => {
     if (err) console.log(err)
     else {
       res.send(data)
