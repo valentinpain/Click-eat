@@ -1,0 +1,24 @@
+{
+  "service": {
+    "UserAccount": {
+      "host": "http://localhost",
+      "apiName": "AuthDB/user",
+      "port": 4000,
+      "url": "http://localhost:4000/AuthDB/user/"
+    },
+    "UserData": {
+      "host": "http://localhost",
+      "apiName": "AuthDB/data",
+      "port": 4000,
+      "url": "http://localhost:4000/AuthDB/data/"
+    },
+    "Commands": {
+      "host": "http://localhost",
+      "apiName": "Commands",
+      "port": 3000,
+      "url": "http://localhost:4000/user"
+    }
+    
+  }
+
+}

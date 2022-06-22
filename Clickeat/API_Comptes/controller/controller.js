@@ -15,7 +15,6 @@ exports.userCreate = async (req, res) => {
 
         const email = req.body.email_user
         const role = req.body.id_role
-        //penser à rajouter une partie pour hasher
         const password = await c.hash(req.body.password_user, 10)
         const uniqueEmail = await User.findOne({ where: { email_user: email } })
         if (!password || !email || uniqueEmail) {

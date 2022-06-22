@@ -1,0 +1,5 @@
+{
+  "1": {
+    "UserAccount": { "methods":[ "GET", "DELETE","POST","UPDATE" ] }
+  }
+}
