@@ -4,6 +4,6 @@
     "\\bin",
     "\\routes"
   ],
-  "SelectedNode": "\\bin\\www.ts",
+  "SelectedNode": "\\routes\\commands.ts",
   "PreviewInSolutionExplorer": false
 }

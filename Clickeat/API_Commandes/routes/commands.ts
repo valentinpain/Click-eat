@@ -17,15 +17,28 @@ commandRouter.get('/user/:user_id', function(req: express.Request, res: express.
   });
 
 /* GET gets every command available in the database for a restaurant. */
-commandRouter.get('/restaurant/:restaurant_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.restaurant_id)
-
-    Command.find({"restaurant._id": id}, (err: Error, data: any) => {
-    if (err) console.log(err)
-    else {
-      res.send(data)
+commandRouter.get('/', function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    if (req.body.type == "restaurant") {
+        const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.id)
+        Command.find({ "restaurant._id": id }, (err: Error, data: any) => {
+            if (err) console.log(err)
+            else {
+                res.send(data)
+            }
+        });
     }
-    });
+    else if (req.body.type == "user") {
+        const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.id)
+        Command.find({ "user._id": id }, (err: Error, data: any) => {
+            if (err) res.send(err)
+            else {
+                res.send(data)
+            }
+        });
+    }
+    else {
+        res.status(400).send("Wrong type")
+    }
   });
 
 /* POST creates a new command of a user. */
