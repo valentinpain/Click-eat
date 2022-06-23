@@ -15,7 +15,7 @@ const restaurantSchema = new Schema<IRestaurant>({
   ratesNumber: {type: Number, required: true},
   location: {type: Number, required: true},
   deliveryType: {type: String, required: true},
-  estimatedTime: {type: Number, required: true}
+  estimatedTime: {type: String, required: true}
 });
 
 const restaurantModel = model('restaurants', restaurantSchema);

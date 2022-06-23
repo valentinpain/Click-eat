@@ -10,7 +10,7 @@ interface IRestaurant {
   ratesNumber: number,
   location: number,
   deliveryType: string,
-  estimatedTime: number
+  estimatedTime: string
 }
 
 export default IRestaurant
