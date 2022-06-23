@@ -19,7 +19,7 @@
         <div class="background white">
 
           <!-- Affichage des plats du restaurant -->
-          <h2 class="font-weight-black text-h3">Plats</h2>
+          <h2 v-if="dishes.length != 0" class="font-weight-black text-h3">Plats</h2>
           <v-row no-gutters>
             <v-col v-for="(dish, index) in dishes" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
@@ -55,7 +55,7 @@
           </v-row>
 
           <!-- Affichage des accompagnements du restaurant -->
-          <h2 class="font-weight-black text-h3">Accompagnements</h2>
+          <h2 v-if="sideDishes.length != 0" class="font-weight-black text-h3">Accompagnements</h2>
           <v-row no-gutters>
             <v-col v-for="(sideDish, index) in sideDishes" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
@@ -91,7 +91,7 @@
           </v-row>
 
           <!-- Affichage des sauces du restaurant -->
-          <h2 class="font-weight-black text-h3">Sauces</h2>
+          <h2 v-if="sauces.length != 0" class="font-weight-black text-h3">Sauces</h2>
           <v-row no-gutters>
             <v-col v-for="(sauce, index) in sauces" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
@@ -127,7 +127,7 @@
           </v-row>
 
           <!-- Affichage des boissons du restaurant -->
-          <h2 class="font-weight-black text-h3">Boissons</h2>
+          <h2 v-if="drinks.length != 0" class="font-weight-black text-h3">Boissons</h2>
           <v-row no-gutters>
             <v-col v-for="(drink, index) in drinks" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
