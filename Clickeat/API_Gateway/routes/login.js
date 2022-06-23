@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const axios = require('axios').default;
-var cors = require('cors');
 var ct = require('../controller/controller')
 
 /* GET users listing. */

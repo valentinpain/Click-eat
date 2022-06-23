@@ -16,6 +16,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         id_role: {
             type: Number
+        },
+        sponsored_by_user: {
+            type: String,
+            allowNull: true
         }
     }, {
         timestamps: false

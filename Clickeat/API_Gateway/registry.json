@@ -4,7 +4,7 @@
       "host": "http://localhost",
       "apiName": "AuthDB/user",
       "port": 4000,
-      "url": "http://localhost:4000/AuthDB/user/"
+      "url": "http://localhost:4000/AuthDB/user"
     },
     "UserData": {
       "host": "http://localhost",
@@ -15,8 +15,38 @@
     "Commands": {
       "host": "http://localhost",
       "apiName": "Commands",
-      "port": 3000,
-      "url": "http://localhost:4000/user"
+      "port": 6000,
+      "url": "http://localhost:6000/commands/"
+    },
+    "Cart": {
+      "host": "http://localhost",
+      "apiName": "articles/cart",
+      "port": 5000,
+      "url": "http://localhost:5000/articles/cart"
+    },
+    "CartData": {
+      "host": "http://localhost",
+      "apiName": "articles/cart/all",
+      "port": 5000,
+      "url": "http://localhost:5000/articles/cart/all"
+    },
+    "Articles": {
+      "host": "http://localhost",
+      "apiName": "articles/available",
+      "port": 5000,
+      "url": "http://localhost:5000/articles/available"
+    },
+    "ArticlesData": {
+      "host": "http://localhost",
+      "apiName": "articles/available/all",
+      "port": 5000,
+      "url": "http://localhost:5000/articles/available/all"
+    },
+    "Menu": {
+      "host": "http://localhost",
+      "apiName": "articles/menu",
+      "port": 5000,
+      "url": "http://localhost:5000/articles/menu"
     }
     
   }

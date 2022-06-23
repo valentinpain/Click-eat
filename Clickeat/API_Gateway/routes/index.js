@@ -1,5 +1,4 @@
 var express = require('express');
-const { response } = require('../app');
 var router = express.Router();
 const ct = require("../controller/controller")
 
@@ -12,7 +11,7 @@ router.post('/logout', async function (req, res, next) {
     ct.logout(req,res)
 });
 
-router.all('/:apiName', async function (req, res, next) {
+router.all('/api/:apiName', async function (req, res, next) {
     ct.transfer(req,res)
 })
 

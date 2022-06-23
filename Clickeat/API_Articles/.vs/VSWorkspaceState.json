@@ -3,10 +3,11 @@
     "",
     "\\bin",
     "\\conf",
+    "\\conf\\schemas",
     "\\docs",
     "\\public",
     "\\routes"
   ],
-  "SelectedNode": "\\bin\\www.ts",
+  "SelectedNode": "\\routes\\menu.ts",
   "PreviewInSolutionExplorer": false
 }

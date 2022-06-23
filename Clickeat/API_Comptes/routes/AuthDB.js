@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var sequelize = require('../model/sequelize');
 var ct = require('../controller/controller')
-const { connect } = require('.');
 
 /* GET users listing. */
 router.post('/user', function(req, res, next) {

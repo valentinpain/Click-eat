@@ -17,6 +17,12 @@ exports.userCreate = async (req, res) => {
         const role = req.body.id_role
         const password = await c.hash(req.body.password_user, 10)
         const uniqueEmail = await User.findOne({ where: { email_user: email } })
+
+        const sponsored = req.body.sponsored_by_user
+        const sponsorExist = await User.findOne({ where: { email_user: sponsored } })
+        if (sponsored && !sponsorExist) {
+            res.status(400).send("Sponsor isn't empty and doesn't exist")
+        }
         if (!password || !email || uniqueEmail) {
             res.status(400).send("Password or email cannot be empty. Or email is already used")
             return
@@ -24,7 +30,8 @@ exports.userCreate = async (req, res) => {
         const user = {
             password_user: password,
             email_user: email,
-            id_role: role
+            id_role: role,
+            sponsored_by_user: sponsored
         }
 
         await User.create(user)
