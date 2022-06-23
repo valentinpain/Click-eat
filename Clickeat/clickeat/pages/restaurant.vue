@@ -2,10 +2,10 @@
   <div class="background white">
     <div>
       <v-container class="white lighten-5 mb-6" fluid>
-        <div class="mb-5">
+        <div v-if="restaurantProperties != null" class="mb-5">
           <v-row>
             <v-col>
-              <img style="width: 100%;" :src="restaurantProperties.imagePath" alt="logo_restaurant" />
+              <img style="width: 100%;" :src="require('./../assets/Pictures/restaurant/' + restaurantProperties.name +'/Presentation/logo.png')" alt="logo_restaurant" />
             </v-col>
             <v-col cols="9" class="text-h5">
               <h1 class="font-weight-bold mb-5">{{ restaurantProperties.name + ' - ' + restaurantProperties.address + ' (' + restaurantProperties.city + ')'}}</h1>
@@ -27,7 +27,7 @@
                   <v-container fluid>
                   <v-row>
                     <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/Mcdo/Articles/' + dish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
+                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + dish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
                     </v-col>
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
@@ -63,7 +63,7 @@
                   <v-container fluid>
                   <v-row>
                     <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/Mcdo/Articles/' + sideDish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
+                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + sideDish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
                     </v-col>
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
@@ -99,7 +99,7 @@
                   <v-container fluid>
                   <v-row>
                     <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/Mcdo/Articles/' + sauce.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
+                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + sauce.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
                     </v-col>
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
@@ -135,7 +135,7 @@
                   <v-container fluid>
                   <v-row>
                     <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/Mcdo/Articles/' + drink.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
+                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + drink.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
                     </v-col>
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
@@ -174,30 +174,16 @@ export default {
   },
   data() {
     return {
-      restaurantProperties : {
-        name:"McDonalds",
-        type: "Fast food",
-        city: "Rouen",
-        address: "2 Boulevard de L'Europe",
-        hourOpened: "19h00",
-        hourClosed: "23h00",
-        rated: 4.2,
-        ratesNumber: 500,
-        location: 7.5,
-        deliveryType: "Livraison offerte",
-        estimatedTime: "45 minutes",
-        imagePath: require('./../assets/Pictures/restaurant/Mcdo/Logo/logo.png')
-      },
+      restaurantProperties : null,
       dishes : [],
       sideDishes : [],
       sauces : [],
       drinks : [],
       menus: [],
-      alignments: ['center'],
     }
   },
   mounted() {
-    this.$axios.get('http://localhost:8000/articles/available/McDonalds').then(response => {
+    this.$axios.get('http://localhost:8000/articles/available/' + this.$route.params.brand).then(response => {
       response.data.forEach(element => {
         switch(element.type) {
           case "dish":
@@ -215,6 +201,10 @@ export default {
         }
       });
   })
+  
+  this.$axios.get('http://localhost:8000/articles/restaurant/' + this.$route.params.brand).then((response) => {
+    this.restaurantProperties = response.data[0]
+  })
   },
   methods: {
     sendArticleToCart(article){
@@ -223,6 +213,7 @@ export default {
         this.$store.commit("addArticle", response.data)
         })
     },
+
   }
 }
 </script>

@@ -7,6 +7,7 @@ import cors from 'cors';
 import cartRouter from './routes/cart';
 import availableRouter from './routes/available';
 import menuRouter from './routes/menu';
+import restaurantRouter from './routes/restaurant';
 
 let app = express();
 
@@ -20,5 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/articles/cart', cartRouter);
 app.use('/articles/available', availableRouter);
 app.use('/articles/menu', menuRouter);
+app.use('/articles/restaurant', restaurantRouter);
 
 export default app

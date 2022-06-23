@@ -10,7 +10,7 @@
                 <v-card>
                   <v-row>
                     <v-col>
-                      <img :src="require('./../assets/Pictures/restaurant/Mcdo/Articles/' + article.imagePath)" alt="article_picture" />
+                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + article.imagePath)" alt="article_picture" />
                     </v-col>
                     <v-col>
                       <h2 class="font-weight-bold">{{ article.name }}</h2>

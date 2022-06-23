@@ -1,5 +1,5 @@
 <template>
-  <v-app app light>
+  <v-app app light >
       <v-toolbar class="pb-10" color="#1D2951" style="height: 8%">
       <v-container fluid>
         <v-row class="mt-12 d-flex justify-space-around" no-gutters>

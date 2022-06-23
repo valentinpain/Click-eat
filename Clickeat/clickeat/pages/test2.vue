@@ -42,39 +42,12 @@
 </template>
 
 <script>
-import Produit from '@/components/Produit.vue'
 
 export default {
-  components: {
-    Produit,
-  },
   data() {
     return {
       restaurants: [
-        {
-          nom: 'Menu1',
-          prix: 3.0,
-          contenu: 'Contenu1',
-          image: require('./../assets/Pictures/restaurant/Mcdo/Menu/Menu1.svg'),
-        },
-        {
-          nom: 'Menu2',
-          prix: 3.0,
-          contenu: 'Contenu2',
-          image: require('./../assets/Pictures/restaurant/Mcdo/Menu/Menu2.svg'),
-        },
-        {
-          nom: 'Menu3',
-          prix: 3.0,
-          contenu: 'Contenu3',
-          image: require('./../assets/Pictures/restaurant/Mcdo/Menu/Menu1.svg'),
-        },
-        {
-          nom: 'Menu4',
-          prix: 3.0,
-          contenu: 'Contenu4',
-          image: require('./../assets/Pictures/restaurant/Mcdo/Menu/Menu1.svg'),
-        },
+        
       ],
       alignments: ['center'],
     }
