@@ -18,6 +18,16 @@
         </div>
         <div class="background white">
 
+        <v-row class="">
+          <v-col cols="2"></v-col>
+          <v-col>
+            <v-btn :to="'/article-creation/' + $route.params.brand" class="rounded-pill pink white--text text-h5 font-weight-bold">+ Ajouter un article</v-btn>
+          </v-col>
+          <v-col>
+            <v-btn :to="'/menu-creation/' + $route.params.brand" class="rounded-pill green white--text text-h5 font-weight-bold">+ Ajouter un menu</v-btn>
+          </v-col>
+        </v-row>
+
           <!-- Affichage des plats du restaurant -->
           <h2 v-if="dishes.length != 0" class="font-weight-black text-h3">Plats</h2>
           <v-row no-gutters>
@@ -56,110 +66,107 @@
           <!-- Affichage des accompagnements du restaurant -->
           <h2 v-if="sideDishes.length != 0" class="font-weight-black text-h3">Accompagnements</h2>
           <v-row no-gutters>
-            <v-col v-for="(sideDish, index) in sideDishes" :key="index" cols="3" class="mx-5 mb-10">
+            <v-col v-for="(sideDishe, index) in sideDishes" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 250px;">
-                  <v-container fluid>
-                  <v-row>
-                    <v-col class="p-0">
-                      <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + sideDish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
-                    </v-col>
-                    <v-col cols="7">
-                      <div class="mb-3" style="display: flex; justify-content: space-between">
-                        <h2 class="font-weight-black text-h5">{{sideDish.name}}</h2>
-                        <v-btn
-                          class="mx-2"
-                          fab
-                          dark
-                          color="red"
-                          @click="sendArticleToCart(sideDish)"
-                        >
-                          <v-icon dark>
-                            mdi-plus
-                          </v-icon>
-                        </v-btn>
-                      </div>
-                      <p class="text-h6">{{ sideDish.description }}</p>
-                      <p class="text-h6 orange--text font-weight-bold">{{ sideDish.price + "€" }}</p>
-                    </v-col>
+                  <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 275px;">
+                    <v-container fluid>
+                      <v-row>
+                        <v-col>
+                        </v-col>
+                        <v-col cols="7">
+                          <h2 class="font-weight-black text-h5">{{sideDishe.name}}</h2>
+                          <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + sideDishe.imagePath)" alt="picture_article" style="width: 50%;"/>
+                        </v-col>
+                        <v-col class="mb-3" style="display: flex; justify-content: space-between">
+                          <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(sideDishe)">
+                            <v-icon dark>mdi-plus</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + sideDishe._id">
+                            <v-icon dark> mdi-delete</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + sideDishe._id">
+                            <v-icon dark>mdi-wrench</v-icon>
+                          </v-btn>
+                        </v-col>
                   </v-row>
-                  </v-container>
-                </v-card>
-                </v-hover>
-            </v-col>
-          </v-row>
+                  <v-row>
+                      <p class="text-h4 orange--text font-weight-bold">{{ sideDishe.price + "€" }}</p>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </v-row>
 
           <!-- Affichage des sauces du restaurant -->
           <h2 v-if="sauces.length != 0" class="font-weight-black text-h3">Sauces</h2>
           <v-row no-gutters>
             <v-col v-for="(sauce, index) in sauces" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 250px;">
-                  <v-container fluid>
-                  <v-row>
-                    <v-col class="p-0">
-                      <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + sauce.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
-                    </v-col>
-                    <v-col cols="7">
-                      <div class="mb-3" style="display: flex; justify-content: space-between">
-                        <h2 class="font-weight-black text-h5">{{sauce.name}}</h2>
-                        <v-btn
-                          class="mx-2"
-                          fab
-                          dark
-                          color="red"
-                          @click="sendArticleToCart(sauce)"
-                        >
-                          <v-icon dark>
-                            mdi-plus
-                          </v-icon>
-                        </v-btn>
-                      </div>
-                      <p class="text-h6">{{ sauce.description }}</p>
-                      <p class="text-h6 orange--text font-weight-bold">{{ sauce.price + "€" }}</p>
-                    </v-col>
+                  <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 275px;">
+                    <v-container fluid>
+                      <v-row>
+                        <v-col>
+                        </v-col>
+                        <v-col cols="7">
+                          <h2 class="font-weight-black text-h5">{{sauce.name}}</h2>
+                          <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + sauce.imagePath)" alt="picture_article" style="width: 50%;"/>
+                        </v-col>
+                        <v-col class="mb-3" style="display: flex; justify-content: space-between">
+                          <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(sauce)">
+                            <v-icon dark>mdi-plus</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + sauce._id">
+                            <v-icon dark> mdi-delete</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + sauce._id">
+                            <v-icon dark>mdi-wrench</v-icon>
+                          </v-btn>
+                        </v-col>
                   </v-row>
-                  </v-container>
-                </v-card>
-                </v-hover>
-            </v-col>
-          </v-row>
+                  <v-row>
+                      <p class="text-h4 orange--text font-weight-bold">{{ sauce.price + "€" }}</p>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </v-row>
 
           <!-- Affichage des boissons du restaurant -->
           <h2 v-if="drinks.length != 0" class="font-weight-black text-h3">Boissons</h2>
           <v-row no-gutters>
             <v-col v-for="(drink, index) in drinks" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 250px;">
-                  <v-container fluid>
-                  <v-row>
-                    <v-col class="p-0">
-                      <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + drink.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
-                    </v-col>
-                    <v-col cols="7">
-                      <div class="mb-3" style="display: flex; justify-content: space-between">
-                        <h2 class="font-weight-black text-h5">{{drink.name}}</h2>
-                        <v-btn
-                          class="mx-2"
-                          fab
-                          dark
-                          color="red"
-                          @click="sendArticleToCart(drink)"
-                        >
-                          <v-icon dark>
-                            mdi-plus
-                          </v-icon>
-                        </v-btn>
-                      </div>
-                      <p class="text-h6">{{ drink.description }}</p>
-                      <p class="text-h6 orange--text font-weight-bold">{{ drink.price + "€" }}</p>
-                    </v-col>
+                  <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 275px;">
+                    <v-container fluid>
+                      <v-row>
+                        <v-col>
+                        </v-col>
+                        <v-col cols="7">
+                          <h2 class="font-weight-black text-h5">{{drink.name}}</h2>
+                          <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + drink.imagePath)" alt="picture_article" style="width: 50%;"/>
+                        </v-col>
+                        <v-col class="mb-3" style="display: flex; justify-content: space-between">
+                          <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(dish)">
+                            <v-icon dark>mdi-plus</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + drink._id">
+                            <v-icon dark> mdi-delete</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + drink._id">
+                            <v-icon dark>mdi-wrench</v-icon>
+                          </v-btn>
+                        </v-col>
                   </v-row>
-                  </v-container>
-                </v-card>
-                </v-hover>
-            </v-col>
-          </v-row>
+                  <v-row>
+                      <p class="text-h4 orange--text font-weight-bold">{{ drink.price + "€" }}</p>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </v-row>
         </div>
       </v-container>
     </div>
@@ -186,16 +193,16 @@ export default {
     this.$axios.get('http://localhost:8000/articles/available/' + this.$route.params.brand).then(response => {
       response.data.forEach(element => {
         switch(element.type) {
-          case "dish":
+          case "plat":
             this.dishes.push(element)
             break;
-          case "side dish":
+          case "accompagnement":
             this.sideDishes.push(element)
             break;
           case "sauce":
             this.sauces.push(element)
             break;
-          case "drink":
+          case "boisson":
             this.drinks.push(element)
             break;
         }
@@ -213,6 +220,25 @@ export default {
         this.$store.commit("addArticle", response.data)
         })
     },
+
+    deleteArticle(articleId, type, index){
+      this.$axios.delete('http://localhost:8000/articles/available/delete/' + articleId).then(() => {
+        switch(type) {
+          case "plat":
+            this.dishes.splice(index, 1)
+            break;
+          case "accompagnement":
+            this.sideDishes.splice(index, 1)
+            break;
+          case "sauce":
+            this.sauces.splice(index, 1)
+            break;
+          case "boisson":
+            this.drinks.splice(index, 1)
+            break;
+        }
+      })
+    }
 
   }
 }

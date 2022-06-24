@@ -151,15 +151,26 @@
               </v-card>
             </v-col>
         </v-row>
-        <v-row class="mt-5">
-          <h2 class="text-h2 purple--text">Dernière commande</h2>
+
+        <v-row class="mt-16">
+          <h2 class="text-h2 purple--text">Dernières livraisons</h2>
           <v-col cols="9">
             <v-card class="py-5 ml-5">
               <v-btn class="ml-5 white--text font-weight-bold text-h6" color="purple" to="/livraisons-historique">Historique</v-btn>
             </v-card>
           </v-col>
         </v-row>
-          <v-row>
+
+        <v-row class="mt-16">
+          <h2 class="text-h2 green--text">Dernières commandes</h2>
+          <v-col cols="9">
+            <v-card class="py-5 ml-5">
+              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="green" to="/commandes-historique">Historique</v-btn>
+            </v-card>
+          </v-col>
+        </v-row>
+        
+          <v-row class="mt-16">
             <h2 class="text-h2 pink--text mt-5">Parrainage</h2>
             <v-col cols="9">
               <v-card class="py-5 px-5 text-h5">

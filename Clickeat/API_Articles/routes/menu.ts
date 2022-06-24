@@ -32,10 +32,10 @@ menuRouter.get('/:menu_id', function(req: express.Request, res: express.Response
 /**
  * @api {post} http://localhost:8000/create Creates an new menu.
  */ 
-menuRouter.post('/create/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  new menuArticle({name: req.body.name, price: req.body.price}).save((err: any) => {
+menuRouter.post('/create', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  new menuArticle({name: req.body.name, articles: req.body.articles, price: req.body.price}).save((err: any) => {
       if (err) {
-        res.status(404).send("Erreur")
+        res.status(404).send(err)
       }
       else {
         res.send("Création réussie !")

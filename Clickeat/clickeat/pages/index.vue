@@ -5,7 +5,7 @@
         <div class="mb-5">
           <v-row>
             <v-col class="p-0" style="position: relative">
-              <img :src="require('./../assets/Pictures/home.png')" alt="picture_food-delivery" style="width: 86%"/>
+              <img :src="require('./../assets/Pictures/home.png')" alt="picture_food-delivery" style="width: 86%; z-index: 2"/>
               <div style="position: absolute; right: 10%; top: 10%">
                 <p class="text-h3 font-italic mb-10"><span class="blue--text font-weight-black" style="font-size: 100px">COMMANDEZ</span> chez nous</p>
                 <p class="text-h3 font-italic mb-10"><span class="blue--text font-weight-black" style="font-size: 100px">RECEVEZ</span> chez vous</p>
@@ -23,7 +23,7 @@
               class="mr-5"
             >
             <v-hover v-slot="{ hover }">
-            <NuxtLink :to="'/restaurant/' + restaurant.name.replace(/\s/g, '')" class="text-decoration-none">
+            <NuxtLink :to="'/restaurants/' + restaurant.name.replace(/\s/g, '')" class="text-decoration-none">
               <v-card :elevation="hover ? 5 : 1" class="pa-2 rounded-lg p-0" style="max-height: 100px; cursor: pointer">
                 <v-row>
                   <v-col cols="3" class="pt-1 pl-1">
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       restaurants: [],
-      role: 2,
+      role: 1,
       accountName: "McDonalds"
     }
   },
