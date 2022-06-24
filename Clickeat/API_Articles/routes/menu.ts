@@ -12,14 +12,15 @@ let menuRouter = express.Router();
 menuRouter.get('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
   const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.menu_id)
 
-  menuArticle.aggregate([{
-    $lookup: {
+  menuArticle.aggregate([
+    {$match: {"_id": id}},
+    {$lookup: {
       from: "availables",
       localField: "_id",
       foreignField: "menuId",
       as: "availableArticle"
-    }
-  }]).exec(function(err, availables){
+    }}
+  ]).exec(function(err, availables){
     if(err){
       res.status(404)
     } else {
@@ -31,10 +32,10 @@ menuRouter.get('/', function(req: express.Request, res: express.Response, next: 
 /**
  * @api {post} http://localhost:8000/create Creates an new menu.
  */ 
-menuRouter.post('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  new menuArticle({name: req.body.name, price: req.body.price}).save((err: any) => {
+menuRouter.post('/create', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  new menuArticle({name: req.body.name, articles: req.body.articles, price: req.body.price}).save((err: any) => {
       if (err) {
-        res.status(404).send("Erreur")
+        res.status(404).send(err)
       }
       else {
         res.send("Création réussie !")

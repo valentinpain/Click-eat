@@ -7,36 +7,171 @@
             <v-col cols="9">
               <v-card>
                 <div class="ml-5 py-5">
-                  <div class="mb-5">
-                    <h4 class="font-weight-bold text-h4">Nom et prénom</h4>
-                    <p class="ml-5 text-h5">{{ compteInfos.lastName + ' ' + compteInfos.firstName}}</p>
+                  <!-- Nom -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Nom</h4>
+                      <v-row>
+                        <v-col cols="5">
+                          <p class="ml-5 text-h5">{{ compteInfos.lastName}}</p>
+                        </v-col>
+                        <v-col cols="2" class="d-flex">
+                          <form class="d-flex text-h6">
+                            <v-text-field v-model="newLastName" label="Nom" required/>
+                            <v-btn
+                              class="white--text ml-10 text-h6"
+                              color="blue"
+                              @click="updateUser('lastName')"
+                            >
+                              Envoyer
+                            </v-btn>
+                          </form>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  <!-- Prénom -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Prénom</h4>
+                      <v-row>
+                        <v-col cols="5">
+                          <p class="ml-5 text-h5">{{ compteInfos.firstName}}</p>
+                        </v-col>
+                        <v-col cols="2" class="d-flex">
+                          <form class="d-flex text-h6">
+                            <v-text-field v-model="newFirstName" label="Prénom" required/>
+                            <v-btn
+                              class="white--text ml-10 text-h6"
+                              color="blue"
+                              @click="updateUser('firstName')"
+                            >
+                              Envoyer
+                            </v-btn>
+                          </form>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  <!-- Âge -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Âge</h4>
+                      <v-row>
+                        <v-col cols="5">
+                          <p class="ml-5 text-h5">{{ compteInfos.age}}</p>
+                        </v-col>
+                        <v-col cols="2" class="d-flex">
+                          <form class="d-flex text-h6">
+                            <v-text-field v-model="newAge" label="Âge" required/>
+                            <v-btn
+                              class="white--text ml-10 text-h6"
+                              color="blue"
+                              @click="updateUser('age')"
+                            >
+                              Envoyer
+                            </v-btn>
+                          </form>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  <!-- Country -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Pays</h4>
+                      <v-row>
+                        <v-col cols="5">
+                          <p class="ml-5 text-h5">{{ compteInfos.country}}</p>
+                        </v-col>
+                        <v-col cols="2" class="d-flex">
+                          <form class="d-flex text-h6">
+                          <v-select
+                            :items="['France']"
+                            label="Pays"
+                            dense
+                            outlined
+                          ></v-select>
+                            <v-btn
+                              class="white--text ml-10 text-h6"
+                              color="blue"
+                              @click="updateUser('country')"
+                            >
+                              Envoyer
+                            </v-btn>
+                          </form>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  <!-- Phone -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Téléphone</h4>
+                      <v-row>
+                        <v-col cols="5">
+                          <p class="ml-5 text-h5">{{ compteInfos.phone}}</p>
+                        </v-col>
+                        <v-col cols="2" class="d-flex">
+                          <form class="d-flex text-h6">
+                            <v-text-field v-model="newPhone" label="Téléphone" required/>
+                            <v-btn
+                              class="white--text ml-10 text-h6"
+                              color="blue"
+                              @click="updateUser('téléphone')"
+                            >
+                              Envoyer
+                            </v-btn>
+                          </form>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  <!-- Mail -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Adresse mail</h4>
+                      <v-row>
+                        <v-col cols="5">
+                          <p class="ml-5 text-h5">{{ compteInfos.mail}}</p>
+                        </v-col>
+                        <v-col cols="2" class="d-flex">
+                          <form class="d-flex text-h6">
+                            <v-text-field v-model="newMail" label="Adresse mail" required/>
+                            <v-btn
+                              class="white--text ml-10 text-h6"
+                              color="blue"
+                              @click="updateUser('mail')"
+                            >
+                              Envoyer
+                            </v-btn>
+                          </form>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  <!-- Type -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Niveau du compte</h4>
+                      <v-row>
+                        <v-col cols="5">
+                          <p class="ml-5 text-h5">{{ compteInfos.type}}</p>
+                        </v-col>
+                      </v-row>
+                    </div>
                   </div>
-                  <div class="mb-5">
-                    <h4 class="font-weight-bold text-h4">Âge</h4>
-                    <p class="ml-5 text-h5">{{ compteInfos.age}}</p>
-                  </div>
-                  <div class="mb-5">
-                    <h4 class="font-weight-bold text-h4">Pays</h4>
-                    <p class="ml-5 text-h5">{{ compteInfos.country}}</p>
-                  </div>
-                  <div class="mb-5">
-                    <h4 class="font-weight-bold text-h4">Téléphone</h4>
-                    <p class="ml-5 text-h5">{{ compteInfos.phone}}</p>
-                  </div>
-                  <div class="mb-5">
-                    <h4 class="font-weight-bold text-h4">Adresse mail</h4>
-                    <p class="ml-5 text-h5">{{ compteInfos.mail}}</p>
-                  </div>
-                  <div class="mb-5">
-                    <h4 class="font-weight-bold text-h4">Type de compte</h4>
-                    <p class="ml-5 text-h5">{{ compteInfos.type}}</p>
-                  </div>
-                </div>
               </v-card>
             </v-col>
         </v-row>
-          <v-row>
-            <h2 class="text-h2 blue--text mt-5">Parrainage</h2>
+
+        <v-row class="mt-16">
+          <h2 class="text-h2 purple--text">Dernières livraisons</h2>
+          <v-col cols="9">
+            <v-card class="py-5 ml-5">
+              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="purple" to="/livraisons-historique">Historique</v-btn>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <v-row class="mt-16">
+          <h2 class="text-h2 green--text">Dernières commandes</h2>
+          <v-col cols="9">
+            <v-card class="py-5 ml-5">
+              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="green" to="/commandes-historique">Historique</v-btn>
+            </v-card>
+          </v-col>
+        </v-row>
+        
+          <v-row class="mt-16">
+            <h2 class="text-h2 pink--text mt-5">Parrainage</h2>
             <v-col cols="9">
               <v-card class="py-5 px-5 text-h5">
                 <p>Entrez une adresse mail existante pour obtenir vos avantages de parrainage. Les avantages du parrainage concernent notamment :</p>
@@ -45,13 +180,13 @@
                 </ul>
                   <form>
                     <v-text-field
-                      v-model="email"
+                      v-model="emailParrainage"
                       label="E-mail"
                       required
                       @input="resetError"
                     ></v-text-field>
                     <v-btn
-                      class="mr-4 white--text"
+                      class="mr-4 white--text text-h6"
                       color="pink"
                       @click="checkParrainage"
                     >
@@ -66,7 +201,6 @@
     </div>
   </div>
 </template>
-
 <script>
 
 export default {
@@ -82,7 +216,13 @@ export default {
         mail: "valentin.pain@viacesi.fr",
         type: "utilisateur classique"
       },
-      email: null,
+      newLastName: null,
+      newFirstName: null,
+      newAge: null,
+      newCountry: null,
+      newPhone: null,
+      newMail: null,
+      emailParrainage: null,
       errorParrainage: "",
     }
   },
@@ -101,6 +241,10 @@ export default {
 
     resetError(){
       this.errorParrainage = "";
+    },
+
+    updateUser(){
+
     }
   }
 }
