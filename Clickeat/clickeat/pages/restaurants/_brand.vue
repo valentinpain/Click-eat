@@ -5,7 +5,7 @@
         <div v-if="restaurantProperties != null" class="mb-5">
           <v-row>
             <v-col>
-              <img style="width: 100%;" :src="require('./../assets/Pictures/restaurant/' + restaurantProperties.name +'/Presentation/logo.png')" alt="logo_restaurant" />
+              <img style="width: 100%;" :src="require('./../../assets/Pictures/restaurant/' + restaurantProperties.name +'/Presentation/logo.png')" alt="logo_restaurant" />
             </v-col>
             <v-col cols="9" class="text-h5">
               <h1 class="font-weight-bold mb-5">{{ restaurantProperties.name + ' - ' + restaurantProperties.address + ' (' + restaurantProperties.city + ')'}}</h1>
@@ -23,36 +23,35 @@
           <v-row no-gutters>
             <v-col v-for="(dish, index) in dishes" :key="index" cols="3" class="mx-5 mb-10">
                 <v-hover v-slot="{ hover }">
-                <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 250px;">
-                  <v-container fluid>
-                  <v-row>
-                    <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + dish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
-                    </v-col>
-                    <v-col cols="7">
-                      <div class="mb-3" style="display: flex; justify-content: space-between">
-                        <h2 class="font-weight-black text-h5">{{dish.name}}</h2>
-                        <v-btn 
-                          class="mx-2"
-                          fab
-                          dark
-                          color="red"
-                          @click="sendArticleToCart(dish)"
-                        >
-                          <v-icon dark>
-                            mdi-plus
-                          </v-icon>
-                        </v-btn>
-                      </div>
-                      <p class="text-h6">{{ dish.description }}</p>
-                      <p class="text-h6 orange--text font-weight-bold">{{ dish.price + "€" }}</p>
-                    </v-col>
+                  <v-card :elevation="hover ? 12 : 2" style="width: 600px; height: 275px;">
+                    <v-container fluid>
+                      <v-row>
+                        <v-col>
+                        </v-col>
+                        <v-col cols="7">
+                          <h2 class="font-weight-black text-h5">{{dish.name}}</h2>
+                          <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + dish.imagePath)" alt="picture_article" style="width: 50%;"/>
+                        </v-col>
+                        <v-col class="mb-3" style="display: flex; justify-content: space-between">
+                          <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(dish)">
+                            <v-icon dark>mdi-plus</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + dish._id">
+                            <v-icon dark> mdi-delete</v-icon>
+                          </v-btn>
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + dish._id">
+                            <v-icon dark>mdi-wrench</v-icon>
+                          </v-btn>
+                        </v-col>
                   </v-row>
-                  </v-container>
-                </v-card>
-                </v-hover>
-            </v-col>
-          </v-row>
+                  <v-row>
+                      <p class="text-h4 orange--text font-weight-bold">{{ dish.price + "€" }}</p>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </v-row>
 
           <!-- Affichage des accompagnements du restaurant -->
           <h2 v-if="sideDishes.length != 0" class="font-weight-black text-h3">Accompagnements</h2>
@@ -63,7 +62,7 @@
                   <v-container fluid>
                   <v-row>
                     <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + sideDish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
+                      <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + sideDish.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
                     </v-col>
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
@@ -99,7 +98,7 @@
                   <v-container fluid>
                   <v-row>
                     <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + sauce.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
+                      <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + sauce.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
                     </v-col>
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
@@ -135,7 +134,7 @@
                   <v-container fluid>
                   <v-row>
                     <v-col class="p-0">
-                      <img :src="require('./../assets/Pictures/restaurant/McDonalds/Articles/' + drink.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
+                      <img :src="require('./../../assets/Pictures/restaurant/McDonalds/Articles/' + drink.imagePath)" alt="picture_article" style="width: 100%; height: 100%;"/>
                     </v-col>
                     <v-col cols="7">
                       <div class="mb-3" style="display: flex; justify-content: space-between">
@@ -180,6 +179,7 @@ export default {
       sauces : [],
       drinks : [],
       menus: [],
+      role: 2
     }
   },
   mounted() {
@@ -222,7 +222,7 @@ export default {
   .background {
     width: 100%;
     height: 100%;
-    background-image: url('./../assets/Background/bg.svg');
+    background-image: url('./../../assets/Background/bg.svg');
     background-repeat: repeat;
 }
 </style>

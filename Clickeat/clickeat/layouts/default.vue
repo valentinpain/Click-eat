@@ -25,7 +25,7 @@
           
           <v-col cols="1" class="mt-2">
             <div style="position: relative; display: inline-block;" @click="displayCart">
-                <v-btn class="pink rounded-lg px-2 py-1">
+                <v-btn class="pink rounded-lg px-2 py-3">
                   <img src="../assets/Pictures/cart.png" alt="cart_logo" style="width: 5%;" />
                   <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" style="width: 5%;" />
                 </v-btn>

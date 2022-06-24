@@ -14,7 +14,7 @@
             </v-col>
           </v-row>
         </div>
-        <div class="mb-16">
+        <div v-if="role == 1" class="mb-16">
           <h2 class="text-h2 mb-10">Nos restaurants partenaires</h2>
           <v-row no-gutters style="height: 60px">
             <v-col
@@ -38,7 +38,16 @@
               </v-hover>
             </v-col>
           </v-row>
-          </div>
+        </div>
+        <div v-else-if="role == 2">
+          <v-row>
+            <v-col></v-col>
+            <v-col cols="3" class="mt-10">
+              <v-btn :to="'/restaurants/' + accountName" class="px-2 py-5 text-h4 font-weight-bold pink--text white rounded-pill">Modifier mes articles</v-btn>
+            </v-col>
+            <v-col></v-col>
+          </v-row>
+        </div>
         </v-container>
     </div>
   </div>
@@ -51,6 +60,8 @@ export default {
   data() {
     return {
       restaurants: [],
+      role: 2,
+      accountName: "McDonalds"
     }
   },
   mounted(){
@@ -60,6 +71,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .Background {
   width: 100%;

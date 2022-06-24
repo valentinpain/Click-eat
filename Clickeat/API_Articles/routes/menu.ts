@@ -12,14 +12,15 @@ let menuRouter = express.Router();
 menuRouter.get('/:menu_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
   const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.menu_id)
 
-  menuArticle.aggregate([{
-    $lookup: {
+  menuArticle.aggregate([
+    {$match: {"_id": id}},
+    {$lookup: {
       from: "availables",
       localField: "_id",
       foreignField: "menuId",
       as: "availableArticle"
-    }
-  }]).exec(function(err, availables){
+    }}
+  ]).exec(function(err, availables){
     if(err){
       res.status(404)
     } else {

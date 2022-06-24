@@ -17,6 +17,20 @@ availableRouter.get('/', function(req: express.Request, res: express.Response, n
   });
 
 /**
+ * @api {get} http://localhost:8000/ Gets every item available in the database.
+ */ 
+availableRouter.get('/:brand/:article_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const article_id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.article_id)
+
+    AvailablesArticle.find({_id: article_id, brand: req.params.brand}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
+/**
  * @api {get} http://localhost:8000/:brand Gets every item available for a specific brand.
  * @apiParam {String} brand The name of the brand involved.
  */ 
