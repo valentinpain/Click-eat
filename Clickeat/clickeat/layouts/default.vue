@@ -2,32 +2,30 @@
   <v-app app light >
       <v-toolbar class="pb-10" color="#1D2951" style="height: 8%">
       <v-container fluid>
-        <v-row class="mt-12 d-flex justify-space-around" no-gutters>
-          <v-col cols="2">
+        <v-row class=" d-flex justify-space-around" no-gutters>
+          <v-col cols="4">
             <v-btn
-              class="ml-15"
               fab
               dark
-              x-large
               color="orange"
               to="/"
             >
-            <v-icon style="width: 20%;" dark>
+            <v-icon dark>
               Click'eat!
             </v-icon>
           </v-btn>
           </v-col>
-          <v-col cols="7">
+          <v-col cols="4">
             <form>
               <input placeholder="Une envie particulière ?" type="text" class="white rounded-pill px-5 py-3 text-h6 search_bar" style="width: 90%;"/>
             </form>
           </v-col>
           
-          <v-col cols="1" class="mt-2">
+          <v-col cols="4" class="mt-2">
             <div style="position: relative; display: inline-block;" @click="displayCart">
                 <v-btn class="pink rounded-lg px-2 py-1">
-                  <img src="../assets/Pictures/cart.png" alt="cart_logo" style="width: 5%;" />
-                  <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" style="width: 5%;" />
+                  <img src="../assets/Pictures/cart.png" alt="cart_logo" height="25px" />
+                  <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" height="40px" />
                 </v-btn>
                 <div id="cart" class="dropdown-content white" style="display: none; position: absolute; z-index: 1; width: 100%;">
                   <ul v-if="$store.getters.getCart.length != 0" style="list-style: none">
@@ -68,7 +66,7 @@
       </v-toolbar>
     <Nuxt />
 
-    <v-footer color="#1D2951" style="height: 20%; position: relative; bottom: 0;" app>
+    <v-footer class="hidden-md-and-down" color="#1D2951" style="height: 20%; position: relative; bottom: 0; " app>
     <v-row class="white--text mt-1">
       <v-col class="mb-3 ml-5 p-0">
         <v-btn
@@ -103,6 +101,66 @@
           <NuxtLink class="white--text" to="/contact" style="text-decoration: none">CONTACT</NuxtLink><br/>
       </v-col>
     </v-row>
+    </v-footer>
+
+          <v-footer
+      color="#1D2951"
+      style="height: 20%; position: relative; bottom: 0"
+      app
+      class="hidden-md-and-up"
+    >
+      <v-row class="white--text mt-1">
+    
+        <v-col class="mb-3 p-0">
+          <h2 class="font-weight-bold text-h5 mb-5">AFFILIATION</h2>
+          <NuxtLink
+            class="font-weight-bold white--text"
+            to="/affiliation"
+            style="text-underline-offset: 7%"
+            >Parrainage</NuxtLink
+          ><br />
+          <NuxtLink
+            class="font-weight-bold white--text"
+            to="/signin"
+            style="text-underline-offset: 7%"
+            >Partenaire</NuxtLink
+          ><br />
+          <NuxtLink class="font-weight-bold white--text" to="/policy"
+            >Politique de confidentialité</NuxtLink
+          ><br />
+          <span>&copy; {{ new Date().getFullYear() }}</span>
+        </v-col>
+        <v-col class="mb-5 p-0">
+          <h2 class="font-weight-bold text-h5 mb-5">NAVIGATION</h2>
+          <NuxtLink class="white--text" to="/home" style="text-decoration: none"
+            >ACCUEIL</NuxtLink
+          ><br />
+          <NuxtLink
+            class="white--text"
+            to="/panier"
+            style="text-decoration: none"
+            >MON PANIER</NuxtLink
+          ><br />
+          <NuxtLink
+            class="white--text"
+            to="/restaurants"
+            style="text-decoration: none"
+            >NOS RESTAURANTS</NuxtLink
+          ><br />
+          <NuxtLink
+            class="white--text"
+            to="/commandes"
+            style="text-decoration: none"
+            >MES COMMANDES</NuxtLink
+          ><br />
+          <NuxtLink
+            class="white--text"
+            to="/contact"
+            style="text-decoration: none"
+            >CONTACT</NuxtLink
+          ><br />
+        </v-col>
+      </v-row>
     </v-footer>
   </v-app>
 </template>

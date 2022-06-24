@@ -3,7 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var cors = require('cors');
+var debug = require("debug")("server")
+var cors = require('cors')
+
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
@@ -11,12 +13,16 @@ var logRouter = require('./routes/login');
 
 var app = express();
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "token, Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "PUT, DELETE, GET, POST");
-    //Reponse.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-    next();
+app.use(cors())
+app.use(function (req ,res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
+
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
 
 // view engine setup
