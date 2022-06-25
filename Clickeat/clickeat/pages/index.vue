@@ -5,7 +5,7 @@
         <div class="mb-5">
           <v-row>
             <v-col class="p-0" style="position: relative">
-              <img :src="require('./../assets/Pictures/home.png')" alt="picture_food-delivery" style="width: 86%"/>
+              <img :src="require('./../assets/Pictures/home.png')" alt="picture_food-delivery" style="width: 86%; z-index: 2"/>
               <div style="position: absolute; right: 10%; top: 10%">
                 <p class="text-h3 font-italic mb-10"><span class="blue--text font-weight-black" style="font-size: 100px">COMMANDEZ</span> chez nous</p>
                 <p class="text-h3 font-italic mb-10"><span class="blue--text font-weight-black" style="font-size: 100px">RECEVEZ</span> chez vous</p>
@@ -14,7 +14,7 @@
             </v-col>
           </v-row>
         </div>
-        <div class="mb-16">
+        <div v-if="role == 1" class="mb-16">
           <h2 class="text-h2 mb-10">Nos restaurants partenaires</h2>
           <v-row no-gutters style="height: 60px">
             <v-col
@@ -23,7 +23,7 @@
               class="mr-5"
             >
             <v-hover v-slot="{ hover }">
-            <NuxtLink :to="'/restaurant/' + restaurant.name.replace(/\s/g, '')" class="text-decoration-none">
+            <NuxtLink :to="'/restaurants/' + restaurant.name.replace(/\s/g, '')" class="text-decoration-none">
               <v-card :elevation="hover ? 5 : 1" class="pa-2 rounded-lg p-0" style="max-height: 100px; cursor: pointer">
                 <v-row>
                   <v-col cols="3" class="pt-1 pl-1">
@@ -38,7 +38,16 @@
               </v-hover>
             </v-col>
           </v-row>
-          </div>
+        </div>
+        <div v-else-if="role == 2">
+          <v-row>
+            <v-col></v-col>
+            <v-col cols="3" class="mt-10">
+              <v-btn :to="'/restaurants/' + accountName" class="px-2 py-5 text-h4 font-weight-bold pink--text white rounded-pill">Modifier mes articles</v-btn>
+            </v-col>
+            <v-col></v-col>
+          </v-row>
+        </div>
         </v-container>
     </div>
   </div>
@@ -51,6 +60,8 @@ export default {
   data() {
     return {
       restaurants: [],
+      role: 1,
+      accountName: "McDonalds"
     }
   },
   mounted(){
@@ -60,6 +71,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .Background {
   width: 100%;

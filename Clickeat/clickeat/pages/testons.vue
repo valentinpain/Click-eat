@@ -1,5 +1,6 @@
 <template>
   <div class="Background">
+    
     <v-row>
       <v-col class="mt-4" align="center" justify="center">
         <v-card style="max-width: 40rem">
@@ -7,8 +8,10 @@
             <h1>Inscription</h1>
             <v-text-field
               label="Nom"
+              v-model="name"
               :rules="nameRules"
-              required>
+              required
+            >
             </v-text-field>
             <v-text-field
               label="Prénom"
@@ -21,17 +24,30 @@
               label="E-mail"
               required
             ></v-text-field>
+              <v-text-field
+              v-model="sponsor"
+              label="Sponsor"
+            ></v-text-field>
             <v-row>
               <v-col>
                 <v-text-field label="Téléphone" :rules="nameRules">
                   required type="tel"
                 </v-text-field>
               </v-col>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="4">
                 <v-select
                   :items="Pays"
                   :rules="rules.Pays"
                   label="Pays"
+                  required
+                ></v-select>
+              </v-col>
+              <v-col>
+                <v-select
+                v-model="role"
+                  :items="roles"
+                  :rules="rules.role"
+                  label="Qui etes-vous?"
                   required
                 ></v-select>
               </v-col>
@@ -58,7 +74,7 @@
               @click:append="show1 = !show1"
             ></v-text-field>
 
-            <v-checkbox color="green" rules>
+            <v-checkbox color="green">
               <template v-slot:label>
                 <div @click.stop="">
                   Do you accept the
@@ -69,13 +85,8 @@
               </template>
             </v-checkbox>
 
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              class="mr-4"
-              @click="validate"
-            >
-              Connexion
+            <v-btn color="success" class="mr-4" v-on:click="signUp">
+              Inscrire
             </v-btn>
           </v-col>
         </v-card>
@@ -110,33 +121,88 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'LoginPage',
   data() {
     return {
       show1: false,
       password: 'Password',
+      sponsor:'',
       rules: {
         required: (value) => !!value || 'Required.',
         min: (v) => v.length >= 8 || 'Min 8 characters',
       },
       Pays: ['France'],
+      roles: ['Client', 'Livreur', 'Restaurateur'],
       value: 30,
       rulesAge: [(v) => v > 16 || '16 ans minimum'],
       conditions: false,
       content:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
       terms: false,
-      email: '',
-          nameRules: [
-      v => !!v || 'Required',
-    ],
+      nameRules: [(v) => !!v || 'Required'],
       emailRules: [
         (v) => !!v || 'E-mail is required',
         (v) => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
-      
+
+      name: '',
+      email: '',
+      password: '',
+      role:'',
     }
+  },
+  methods: {
+    signUp() {
+      let temp
+      if (this.role == 'Client') {
+        temp = 1
+      }
+      else if (this.role == 'Livreur') {
+        temp = 2
+      }
+      else if (this.role == 'Restaurateur') {
+        temp = 3
+      }
+
+
+      
+      var axios = require('axios')
+      var data = JSON.stringify({
+        email_user: this.email,
+        password_user: this.password,
+        sponsored_by_user: this.sponsor,
+        id_role: temp,
+      })
+
+      var config = {
+        method: 'post',
+        url: 'http://localhost:8000/api/UserAccount',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      }
+      axios(config)
+        .then(function (response) {
+          if (
+            response.data ==
+            'Password or email cannot be empty. Or email is already used'
+          ) {
+            alert('Password or email cannot be empty. Or email is already used')
+          }
+          else {
+            alert('Vous êtes bien inscris')
+          }
+          console.log(JSON.stringify(response.data))
+        })
+        
+        .catch(function (error) {
+          console.log(error);
+          alert('Password or email cannot be empty. Or email is already used')
+        });
+    },
   },
 }
 </script>

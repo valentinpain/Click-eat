@@ -19,7 +19,21 @@ availableRouter.get('/all', function(req: express.Request, res: express.Response
   
 
 /**
- * @api {get} http://localhost:8000/:brand Gets every item available for a specific brand
+ * @api {get} http://localhost:8000/ Gets every item available in the database.
+ */ 
+availableRouter.get('/:brand/:article_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const article_id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.article_id)
+
+    AvailablesArticle.find({_id: article_id, brand: req.params.brand}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
+/**
+ * @api {get} http://localhost:8000/:brand Gets every item available for a specific brand.
  * @apiParam {String} brand The name of the brand involved.
  */ 
 availableRouter.get('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
@@ -34,9 +48,11 @@ availableRouter.get('/', function(req: express.Request, res: express.Response, n
 /**
  * @api {post} http://localhost:8000/create Creates a new article of a brand.
  */ 
-availableRouter.post('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  new AvailablesArticle({name: req.body.name, type: req.body.type, brand: req.body.brand, price: req.body.price, menuId: req.body.menuId, imagePath: req.body.imagePath}).save((err: any) => {
-      if (err) res.status(404).send("Erreur")
+availableRouter.post('/create', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.menuId)
+  
+  new AvailablesArticle({name: req.body.name, type: req.body.type, brand: req.body.brand, price: req.body.price, menuId: id, imagePath: req.body.image}).save((err: any) => {
+      if (err) res.status(404).send(err)
       else {
         res.send("Création réussie !")
       }
@@ -50,7 +66,7 @@ availableRouter.post('/', function(req: express.Request, res: express.Response, 
 availableRouter.put('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
   const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body._id)
 
-  AvailablesArticle.findByIdAndUpdate(id, {name: req.body.name, type: req.body.type, brand: req.body.brand, price: req.body.price, menuId: req.body.menuId, imagePath: req.body.imagePath}, function (err: Error, result: any) {
+  AvailablesArticle.findByIdAndUpdate(id, {name: req.body.name, type: req.body.type, brand: req.body.brand, price: req.body.price, menuId: req.body.menuId, imagePath: req.body.image}, function (err: Error, result: any) {
     if(err) {
       res.status(404)
     }

@@ -3,7 +3,7 @@ const c  = require('bcryptjs')
 
 const User = db.User
 
-//enum d'opérateur pour permettre de faire des operations complexes (sinon c'est par défaut equals)
+//enum d'opï¿½rateur pour permettre de faire des operations complexes (sinon c'est par dï¿½faut equals)
 const { Op } = require('sequelize');
 const { log } = require("debug");
 
@@ -17,7 +17,7 @@ exports.userCreate = async (req, res) => {
         const role = req.body.id_role
         const password = await c.hash(req.body.password_user, 10)
         const uniqueEmail = await User.findOne({ where: { email_user: email } })
-
+        console.log(email)
         const sponsored = req.body.sponsored_by_user
         const sponsorExist = await User.findOne({ where: { email_user: sponsored } })
         if (sponsored && !sponsorExist) {
@@ -34,7 +34,7 @@ exports.userCreate = async (req, res) => {
             id_role: role,
             sponsored_by_user: sponsored
         }
-
+        console.log(user)
         await User.create(user)
         res.send(user)
     }
@@ -49,7 +49,7 @@ exports.userUpdate = async (req, res) => {
     const email = req.body.email_user
     const role = req.body.id_role
     const id = req.body.id_user
-    //penser à rajouter une partie pour hasher le nouveau mdp
+    //penser ï¿½ rajouter une partie pour hasher le nouveau mdp
     const password = req.body.password_user
 
     if (!id || !password || !email) {
