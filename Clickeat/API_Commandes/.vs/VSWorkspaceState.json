@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\bin",
+    "\\conf",
     "\\routes"
   ],
-  "SelectedNode": "\\routes\\commands.ts",
+  "SelectedNode": "\\conf\\schemas",
   "PreviewInSolutionExplorer": false
 }

@@ -136,7 +136,6 @@ exports.transfer = async (req, res) => {
                 url: reg.service[req.params.apiName].url,
                 method: req.method,
                 data: req.body,
-                params: {brand:'McDonalds'}
             })
             res.status(response.status).send(response.data)
         }

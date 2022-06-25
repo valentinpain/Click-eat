@@ -22,6 +22,7 @@ exports.userCreate = async (req, res) => {
         const sponsorExist = await User.findOne({ where: { email_user: sponsored } })
         if (sponsored && !sponsorExist) {
             res.status(400).send("Sponsor isn't empty and doesn't exist")
+            return
         }
         if (!password || !email || uniqueEmail) {
             res.status(400).send("Password or email cannot be empty. Or email is already used")

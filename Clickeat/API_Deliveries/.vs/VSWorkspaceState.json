@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\bin",
-    "\\controller",
-    "\\model",
     "\\routes"
   ],
-  "SelectedNode": "\\bin\\www",
+  "SelectedNode": "\\routes\\delivery.ts",
   "PreviewInSolutionExplorer": false
 }
