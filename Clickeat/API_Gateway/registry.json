@@ -47,8 +47,14 @@
       "apiName": "articles/menu",
       "port": 5000,
       "url": "http://localhost:5000/articles/menu"
+    },
+    "Deliveries": {
+      "host": "http://localhost",
+      "apiName": "/deliveries/",
+      "port": 7000,
+      "url": "http://localhost:7000/deliveries"
     }
-    
+
   }
 
 }

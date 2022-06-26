@@ -3,8 +3,10 @@
     "",
     "\\bin",
     "\\conf",
+    "\\conf\\interfaces",
+    "\\conf\\schemas",
     "\\routes"
   ],
-  "SelectedNode": "\\conf\\schemas",
+  "SelectedNode": "\\conf\\interfaces\\ICommand.ts",
   "PreviewInSolutionExplorer": false
 }
