@@ -131,7 +131,7 @@ exports.dataGet = async (req, res) => {
     try {
         const user = await User.findAll({
         })
-        res.json({ user })
+        res.json(user)
     }
     catch (e) {
         console.info(e)
