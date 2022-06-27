@@ -52,9 +52,9 @@ exports.userUpdate = async (req, res) => {
     //penser � rajouter une partie pour hasher le nouveau mdp
     const password = req.body.password_user
 
-    if (!id || !password || !email) {
+    if (!id || !email) {
         res.status(400).send("id, password or email cannot be empty.")
-
+        return
     }
 
     const user = {
