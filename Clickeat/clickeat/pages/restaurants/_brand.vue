@@ -18,7 +18,7 @@
         </div>
         <div class="background white">
 
-        <v-row class="">
+        <v-row v-if="role == 2">
           <v-col cols="2"></v-col>
           <v-col>
             <v-btn :to="'/article-creation/' + $route.params.brand" class="rounded-pill pink white--text text-h5 font-weight-bold">+ Ajouter un article</v-btn>
@@ -46,7 +46,7 @@
                           <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(dish)">
                             <v-icon dark>mdi-plus</v-icon>
                           </v-btn>
-                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + dish._id">
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" @click="deleteArticle(dish._id, 'plat', index)">
                             <v-icon dark> mdi-delete</v-icon>
                           </v-btn>
                           <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + dish._id">
@@ -81,7 +81,7 @@
                           <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(sideDishe)">
                             <v-icon dark>mdi-plus</v-icon>
                           </v-btn>
-                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + sideDishe._id">
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" @click="deleteArticle(sideDishe._id, 'accompagnement', index)">
                             <v-icon dark> mdi-delete</v-icon>
                           </v-btn>
                           <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + sideDishe._id">
@@ -116,7 +116,7 @@
                           <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(sauce)">
                             <v-icon dark>mdi-plus</v-icon>
                           </v-btn>
-                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + sauce._id">
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" @click="deleteArticle(sauce._id, 'sauce', index)">
                             <v-icon dark> mdi-delete</v-icon>
                           </v-btn>
                           <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + sauce._id">
@@ -151,7 +151,7 @@
                           <v-btn v-if="role == 1" class="mx-2" fab dark color="red" @click="sendArticleToCart(dish)">
                             <v-icon dark>mdi-plus</v-icon>
                           </v-btn>
-                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" :to="'/articles/' + $route.params.brand + '/' + drink._id">
+                          <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="red" @click="deleteArticle(drink._id, 'boisson', index)">
                             <v-icon dark> mdi-delete</v-icon>
                           </v-btn>
                           <v-btn v-if="role == 2" class="mx-2 my-2" fab dark color="orange" :to="'/articles/' + $route.params.brand + '/' + drink._id">
@@ -186,7 +186,7 @@ export default {
       sauces : [],
       drinks : [],
       menus: [],
-      role: 2
+      role: this.$store.getters.getRole
     }
   },
   mounted() {
@@ -222,6 +222,7 @@ export default {
     },
 
     deleteArticle(articleId, type, index){
+      console.log('http://localhost:8000/articles/available/delete/' + articleId)
       this.$axios.delete('http://localhost:8000/articles/available/delete/' + articleId).then(() => {
         switch(type) {
           case "plat":

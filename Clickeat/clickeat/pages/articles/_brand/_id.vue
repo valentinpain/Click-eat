@@ -50,7 +50,8 @@
                       </v-col>
                       <v-col>
                         <form class="d-flex text-h6">
-                            <v-text-field v-model="price" label="Prix" required/>
+                          <v-text-field v-model="price" label="Prix" required/>
+                          <v-col>
                             <v-btn
                               class="white--text ml-10 text-h6"
                               color="blue"
@@ -58,7 +59,8 @@
                             >
                               Envoyer
                             </v-btn>
-                          </form>
+                          </v-col>
+                        </form>
                       </v-col>
                     </v-row>
 
@@ -69,19 +71,25 @@
                       <v-col>
                         <form class="d-flex text-h6">
                             <v-select v-model="type" :items="types" label="Outlined style" outlined></v-select>
-                            <v-btn
-                              class="white--text ml-10 text-h6"
-                              color="blue"
-                              @click="updateArticle('type')"
-                            >
-                              Envoyer
-                            </v-btn>
+                            <v-col>
+                              <v-btn
+                                class="white--text ml-10 text-h6"
+                                color="blue"
+                                @click="updateArticle('type')"
+                              >
+                                Envoyer
+                              </v-btn>
+                            </v-col>
                           </form>
                       </v-col>
                     </v-row>
 
+                    <v-col>
+                      <v-btn class="orange white--text text-h6" :to="'/restaurants/' + $route.params.brand">Retour</v-btn>
+                    </v-col>
+
                   </v-col>
-                  <p class="mt-5 ml-5 pink--text text-h6">{{ formResult }}</p>
+                  <p class="mt-5 ml-5 pink--text text-h6 font-weight-bold">{{ formResult }}</p>
                 </v-card>
             </v-col>
         </v-row>
