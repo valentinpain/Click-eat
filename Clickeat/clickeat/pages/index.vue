@@ -60,8 +60,8 @@ export default {
   data() {
     return {
       restaurants: [],
-      accountName: "McDonalds",
-      role: this.$store.getters.getRole
+      role: 1,
+      accountName: "McDonalds"
     }
   },
   mounted(){

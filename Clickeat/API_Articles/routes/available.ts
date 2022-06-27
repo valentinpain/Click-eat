@@ -1,6 +1,5 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { idText } from 'typescript';
 import AvailablesArticle from '../conf/schemas/availableSchema';
 
 let availableRouter = express.Router();
@@ -22,8 +21,10 @@ availableRouter.get('/all', function(req: express.Request, res: express.Response
 /**
  * @api {get} http://localhost:8000/ Gets every item available in the database.
  */ 
-availableRouter.get('/:brand', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-    AvailablesArticle.find({brand: req.params.brand}, (err: Error, data: any) => {
+availableRouter.get('/:brand/:article_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const article_id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.article_id)
+
+    AvailablesArticle.find({_id: article_id, brand: req.params.brand}, (err: Error, data: any) => {
     if (err) console.log(err)
     else {
       res.send(data)
@@ -35,10 +36,8 @@ availableRouter.get('/:brand', function(req: express.Request, res: express.Respo
  * @api {get} http://localhost:8000/:brand Gets every item available for a specific brand.
  * @apiParam {String} brand The name of the brand involved.
  */ 
-availableRouter.get('/:brand/:id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id)
-
-    AvailablesArticle.find({_id: id, brand: req.params.brand}, (err: Error, data: any) => {
+availableRouter.get('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    AvailablesArticle.find({brand: req.body.brand}, (err: Error, data: any) => {
     if (err) console.log(err)
     else {
       res.send(data)
@@ -64,8 +63,8 @@ availableRouter.post('/create', function(req: express.Request, res: express.Resp
  * @api {put} http://localhost:8000/update/:_id Updates a whole article in the database.
  * @apiParam {Number} _id The id of the article involved.
  */ 
-availableRouter.put('/update/:id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id)
+availableRouter.put('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body._id)
 
   AvailablesArticle.findByIdAndUpdate(id, {name: req.body.name, type: req.body.type, brand: req.body.brand, price: req.body.price, menuId: req.body.menuId, imagePath: req.body.image}, function (err: Error, result: any) {
     if(err) {
@@ -81,12 +80,12 @@ availableRouter.put('/update/:id', function(req: express.Request, res: express.R
  * @api {delete} http://localhost:8000/delete/:_id Deletes an article in the database.
  * @apiParam {Number} _id The id of the article involved.
  */ 
-availableRouter.delete('/delete/:id', function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.id)
+availableRouter.delete('/', function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body._id)
 
-    AvailablesArticle.deleteOne({_id: id}, function (err: Error, result: any) {
+    AvailablesArticle.deleteOne(id, function (err: Error, result: any) {
       if(err) {
-        res.status(404).send(err)
+        res.status(404)
       }
       else {
         res.send("Suppression réussie")

@@ -1,5 +1,4 @@
 export const state = () => ({
-  role: 2,
   cart: []
 })
 
@@ -12,17 +11,11 @@ export const mutations = {
   },
   removeArticle(state, index){
     state.cart.splice(index, 1)
-  },
-  setRole(state, role){
-    state.role = role
   }
 }
 
 export const getters = {
   getCart(state) {
     return state.cart
-  },
-  getRole(state){
-    return state.role;
   }
 }

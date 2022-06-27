@@ -32,11 +32,9 @@
                 </v-row>
 
                   <v-row>
+                      <v-col></v-col>
                       <v-col>
                         <v-btn @click="createMenu" class="green white--text text-h6">Envoyer</v-btn>
-                      </v-col>
-                      <v-col>
-                        <v-btn class="orange white--text text-h6" :to="'/restaurants/' + $route.params.brand">Retour</v-btn>
                       </v-col>
                     </v-row>
                   <p class="mt-5 ml-5 pink--text text-h6">{{ formResult }}</p>

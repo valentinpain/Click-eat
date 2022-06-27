@@ -33,11 +33,9 @@
                     </v-row>
 
                     <v-row>
+                      <v-col></v-col>
                       <v-col>
                         <v-btn @click="createArticle" class="green white--text text-h6">Envoyer</v-btn>
-                      </v-col>
-                      <v-col>
-                        <v-btn class="orange white--text text-h6" :to="'/restaurants/' + $route.params.brand">Retour</v-btn>
                       </v-col>
                     </v-row>
 
