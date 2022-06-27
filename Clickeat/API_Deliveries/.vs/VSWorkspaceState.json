@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\bin",
-    "\\controller",
-    "\\model",
+    "\\conf",
+    "\\conf\\schemas",
     "\\routes"
   ],
-  "SelectedNode": "\\bin\\www",
+  "SelectedNode": "\\conf\\schemas\\deliverySchema.ts",
   "PreviewInSolutionExplorer": false
 }

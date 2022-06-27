@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\bin",
+    "\\conf",
+    "\\conf\\interfaces",
+    "\\conf\\schemas",
     "\\routes"
   ],
-  "SelectedNode": "\\routes\\commands.ts",
+  "SelectedNode": "\\conf\\interfaces\\ICommand.ts",
   "PreviewInSolutionExplorer": false
 }

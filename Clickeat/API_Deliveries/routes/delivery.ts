@@ -4,7 +4,23 @@ import Delivery from '../conf/schemas/deliverySchema';
 
 let deliveryRouter = express.Router();
 
-/* GET gets every "accepted" delivery in the database of an user. */
+
+/* GET gets every delivery in the database of a status and an user. */
+deliveryRouter.get('/', function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.user_id)
+    const status: string = req.body.status
+    Delivery.find({ "command.user._id": id, status: status }, (err: Error, data: any) => {
+        if (err) console.log(err)
+        else {
+            res.send(data)
+        }
+    });
+});
+
+
+
+/* Deprecated
+ * GET gets every "accepted" delivery in the database of an user. */
 deliveryRouter.get('/accepted/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
 
@@ -16,43 +32,8 @@ deliveryRouter.get('/accepted/:user_id', function(req: express.Request, res: exp
     });
   });
 
-  /* GET gets every "accepted" delivery in the database. */
-deliveryRouter.get('/accepted/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
-
-    Delivery.find({status: "accepted"}, (err: Error, data: any) => {
-    if (err) console.log(err)
-    else {
-      res.send(data)
-    }
-    });
-  });
-
-  /* GET gets the latest delivery of an user. */
-deliveryRouter.get('/new/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
-
-    Delivery.find({"command.user._id": id, status: "new"}, (err: Error, data: any) => {
-    if (err) console.log(err)
-    else {
-      res.send(data)
-    }
-    });
-  });
-
-/* GET gets every "idle" delivery in the database. */
-deliveryRouter.get('/idle', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
-
-    Delivery.find({status: "idle"}, (err: Error, data: any) => {
-    if (err) console.log(err)
-    else {
-      res.send(data)
-    }
-    });
-  });
-
-/* GET gets every "idle" delivery in the database of an user. */
+/* Deprecated
+ * GET gets every "idle" delivery in the database of an user. */
 deliveryRouter.get('/idle/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
 
@@ -64,7 +45,8 @@ deliveryRouter.get('/idle/:user_id', function(req: express.Request, res: express
     });
   });
 
-/* GET gets every "delivered" delivery in the database of an user. */
+/* Deprecated
+ * GET gets every "delivered" delivery in the database of an user. */
 deliveryRouter.get('/delivered/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
 
@@ -89,7 +71,7 @@ deliveryRouter.get('/user/:user_id', function(req: express.Request, res: express
   });
 
 /* POST creates a new delivery for a user. */
-deliveryRouter.post('/create', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+deliveryRouter.post('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
   new Delivery({command: req.body.command, status: req.body.status, address: req.body.address}).save((err: any) => {
       if (err) res.status(404).send(err)
       else {
@@ -99,8 +81,8 @@ deliveryRouter.post('/create', function(req: express.Request, res: express.Respo
 })
 
 /* PUT updates a whole delivery in the database. */
-deliveryRouter.put('/update/:delivery_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.delivery_id)
+deliveryRouter.put('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.delivery_id)
 
   Delivery.findByIdAndUpdate(id, {command: req.body.command, status: req.body.status, address: req.body.address}, function (err: Error, result: any) {
     if(err) {
@@ -113,8 +95,8 @@ deliveryRouter.put('/update/:delivery_id', function(req: express.Request, res: e
 })
 
 /* DELETE deletes a delivery article */
-deliveryRouter.delete('/delete/:delivery_id', function(req: express.Request, res: express.Response, next: express.NextFunction){
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.delivery_id)
+deliveryRouter.delete('/', function(req: express.Request, res: express.Response, next: express.NextFunction){
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.delivery_id)
 
     Delivery.deleteOne(id, function (err: Error, result: any) {
       if(err) {
