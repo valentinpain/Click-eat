@@ -4,7 +4,8 @@ import Command from '../conf/schemas/commandSchema';
 
 let commandRouter = express.Router();
 
-/* GET gets every command available in the database for an user. */
+/* @Deprecated
+// GET gets every command available in the database for an user.
 commandRouter.get('/user/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
 
@@ -14,35 +15,23 @@ commandRouter.get('/user/:user_id', function(req: express.Request, res: express.
       res.send(data)
     }
     });
-  });
+});
+*/
 
 /* GET gets every command available in the database for a restaurant. */
 commandRouter.get('/', function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    if (req.body.type == "restaurant") {
         const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.id)
-        Command.find({ "restaurant._id": id }, (err: Error, data: any) => {
+        Command.find({ user: id }, (err: Error, data: any) => {
             if (err) console.log(err)
             else {
                 res.send(data)
             }
         });
-    }
-    else if (req.body.type == "user") {
-        const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body.id)
-        Command.find({ "user._id": id }, (err: Error, data: any) => {
-            if (err) res.send(err)
-            else {
-                res.send(data)
-            }
-        });
-    }
-    else {
-        res.status(400).send("Wrong type")
-    }
+    
   });
 
 /* POST creates a new command of a user. */
-commandRouter.post('/create', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+commandRouter.post('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
   new Command({user: req.body.user, articles: req.body.articles, validated: req.body.validated}).save((err: any) => {
       if (err) res.status(404).send(err)
       else {
@@ -52,8 +41,8 @@ commandRouter.post('/create', function(req: express.Request, res: express.Respon
 })
 
 /* PUT updates a whole command in the database. */
-commandRouter.put('/update/:_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params._id)
+commandRouter.put('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body._id)
 
   req.body.user._id = new mongoose.Types.ObjectId(req.body.user._id)
 
@@ -68,8 +57,8 @@ commandRouter.put('/update/:_id', function(req: express.Request, res: express.Re
 })
 
 /* DELETE deletes a command */
-commandRouter.delete('/delete/:_id', function(req: express.Request, res: express.Response, next: express.NextFunction){
-  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params._id)
+commandRouter.delete('/', function(req: express.Request, res: express.Response, next: express.NextFunction){
+  const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.body._id)
 
     Command.deleteOne(id, function (err: Error, result: any) {
       if(err) {

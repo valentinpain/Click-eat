@@ -129,14 +129,12 @@ exports.logout = async (req, res) => {
 
 exports.transfer = async (req, res) => {
     try {
-        
         if (perm[req.body.id_role][req.params.apiName].methods?.find(method => method === req.method) ) {
         
             const response = await axios({
                 url: reg.service[req.params.apiName].url,
                 method: req.method,
-                data: req.body,
-                params: {brand:'McDonalds'}
+                data: req.body
             })
             res.status(response.status).send(response.data)
         }
@@ -145,6 +143,6 @@ exports.transfer = async (req, res) => {
         }
     }
     catch (e) {
-        res.status(400).send({ Error:e })
+        res.status(403).send({ result: false, message: 'Forbidden' })
     }
 }

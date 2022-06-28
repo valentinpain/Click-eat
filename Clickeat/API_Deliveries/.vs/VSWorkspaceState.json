@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\bin",
+    "\\conf",
+    "\\conf\\schemas",
+    "\\routes"
+  ],
+  "SelectedNode": "\\conf\\schemas\\deliverySchema.ts",
+  "PreviewInSolutionExplorer": false
+}

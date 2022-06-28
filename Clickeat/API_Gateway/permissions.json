@@ -6,7 +6,8 @@
     "Cart": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
     "CartData": { "methods": [ "DELETE" ] },
     "Articles": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
-    "ArticlesData": { "methods": [ "GET"] },
-    "Menu": { "methods": [ "GET", "DELETE", "POST", "PUT" ] }
+    "ArticlesData": { "methods": [ "GET" ] },
+    "Menu": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Deliveries": { "methods": [ "GET", "DELETE", "POST", "PUT" ] }
   }
 }

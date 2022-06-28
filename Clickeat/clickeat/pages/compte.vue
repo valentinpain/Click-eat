@@ -197,6 +197,15 @@
               </v-card>
             </v-col>
           </v-row>
+
+        <v-row class="mt-16">
+          <h2 class="text-h2 green--text">Suppression du compte</h2>
+          <v-col cols="9">
+            <v-card class="py-5 ml-5">
+              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="green" @click="deleteAccount">Supprimer mon compte</v-btn>
+            </v-card>
+          </v-col>
+        </v-row>
         </v-container>
     </div>
   </div>
@@ -245,6 +254,10 @@ export default {
 
     updateUser(){
 
+    },
+
+    deleteAccount(){
+      
     }
   }
 }
