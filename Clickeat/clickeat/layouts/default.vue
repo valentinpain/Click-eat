@@ -242,7 +242,13 @@
 </template>
 
 <script>
+import panier from "../components/Panier.vue"
+import btncompte from "../components/BtnCompte.vue"
 export default {
+  components:{
+    panier,
+    btncompte,
+  },
     name: "DefaultLayout",
     data() {
         return {

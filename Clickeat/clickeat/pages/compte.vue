@@ -3,6 +3,13 @@
     <div>
       <v-container no-gutters class="white lighten-5 mb-6 mt-5" fluid>
         <v-row>
+          <v-col>
+            <img
+              src="../assets/Pictures/vertic.jpeg"
+              alt="cart_logo"
+              height="900px"
+            />
+          </v-col>
             <h2 class="text-h2 blue--text">Informations générales du compte</h2>
             <v-col cols="9">
               <v-card>
@@ -66,7 +73,12 @@
           <h2 class="text-h2 purple--text">Dernières livraisons</h2>
           <v-col cols="9">
             <v-card class="py-5 ml-5">
-              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="purple" to="/livraisons-historique">Historique</v-btn>
+              <v-btn
+                class="ml-5 white--text font-weight-bold text-h6"
+                color="purple"
+                to="/livraisons-historique"
+                >Historique</v-btn
+              >
             </v-card>
           </v-col>
         </v-row>
@@ -75,7 +87,12 @@
           <h2 class="text-h2 green--text">Dernières commandes</h2>
           <v-col cols="9">
             <v-card class="py-5 ml-5">
-              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="green" to="/commandes-historique">Historique</v-btn>
+              <v-btn
+                class="ml-5 white--text font-weight-bold text-h6"
+                color="green"
+                to="/commandes-historique"
+                >Historique</v-btn
+              >
             </v-card>
           </v-col>
         </v-row>
@@ -133,7 +150,7 @@
 
 
 export default {
-  name: "ComptePage",
+  name: 'ComptePage',
   data() {
     return {
       compteInfos: {
@@ -142,7 +159,7 @@ export default {
       newPassword: null,
       updateText: "",
       emailParrainage: null,
-      errorParrainage: "",
+      errorParrainage: '',
     }
   },
   mounted(){
@@ -177,8 +194,8 @@ export default {
         })
     },
 
-    resetError(){
-      this.errorParrainage = "";
+    resetError() {
+      this.errorParrainage = ''
     },
 
     logOut(){
@@ -233,5 +250,4 @@ export default {
   background-image: url('./../assets/Background/bg.svg');
   background-repeat: repeat;
 }
-
 </style>
