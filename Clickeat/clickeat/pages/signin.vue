@@ -1,82 +1,212 @@
 <template>
   <div class="Background">
+    
     <v-row>
-      <v-col class="text-center mt-4">
-        <v-card>
-          <v-row>
-            <v-col
-              class="rounded-r-xl black--text left_connection_card"
-              color="#FFC045"
+      <v-col class="mt-4" align="center" justify="center">
+        <v-card style="max-width: 40rem">
+          <v-col class="mt-4" align="center" justify="center">
+            <h1>Inscription</h1>
+            <v-text-field
+              label="Nom"
+              v-model="name"
+              :rules="nameRules"
+              required
             >
-              <h1>Bienvenue !</h1>
-              <hr class="mb-2" />
-              <p class="font-italic">Un petit creux?</p>
-            </v-col>
-            <v-col>
-              <v-form ref="form" v-model="valid" lazy-validation>
-                <v-text-field
-                  v-model="email"
-                  :rules="emailRules"
-                  label="E-mail"
+            </v-text-field>
+            <v-text-field
+              label="Prénom"
+              :rules="nameRules"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required
+            ></v-text-field>
+              <v-text-field
+              v-model="sponsor"
+              label="Sponsor"
+            ></v-text-field>
+            <v-row>
+              <v-col>
+                <v-text-field label="Téléphone" :rules="nameRules">
+                  required type="tel"
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-select
+                  :items="Pays"
+                  :rules="rules.Pays"
+                  label="Pays"
                   required
-                ></v-text-field>
-
-                <v-text-field
-                  v-model="password"
-                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :rules="[rules.required, rules.min]"
-                  :type="show1 ? 'text' : 'password'"
-                  name="input-10-1"
-                  label="Mot de passe"
-                  hint="At least 8 characters"
-                  counter
-                  @click:append="show1 = !show1"
-                ></v-text-field>
-
-                <v-checkbox
-                  v-model="checkbox"
-                  :rules="[(v) => !!v || 'You must agree to continue!']"
-                  label="Do you agree?"
+                ></v-select>
+              </v-col>
+              <v-col>
+                <v-select
+                v-model="role"
+                  :items="roles"
+                  :rules="rules.role"
+                  label="Qui etes-vous?"
                   required
-                ></v-checkbox>
+                ></v-select>
+              </v-col>
+            </v-row>
+            <v-slider
+              label="Age"
+              v-model="value"
+              :rules="rulesAge"
+              step="1"
+              thumb-label
+              ticks
+            ></v-slider>
+            <!--<v-text-field
+              v-model="password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show1 ? 'text' : 'password'"
+              name="input-10-1"
+              label="Mot de passe"
+              hint="At least 8 characters"
+              counter
+              @click:append="show1 = !show1"
+            ></v-text-field> -->
+            <Pass/>
+            <v-checkbox color="green">
+              <template v-slot:label>
+                <div @click.stop="">
+                  Acceptez-vous les
+                  <a href="#" @click.prevent="terms = true">terms</a>
+                  et les
+                  <a href="#" @click.prevent="conditions = true">conditions?</a>
+                </div>
+              </template>
+            </v-checkbox>
 
-                <v-btn
-                  :disabled="!valid"
-                  color="success"
-                  class="mr-4"
-                  @click="validate"
-                >
-                  Validate
-                </v-btn>
+            <v-btn color="success" class="mr-4" v-on:click="signUp">
+              S'inscrire
+            </v-btn>
 
-                <v-btn color="error" class="mr-4" @click="reset">
-                  Reset Form
-                </v-btn>
-
-                <v-btn color="warning" @click="resetValidation">
-                  Reset Validation
-                </v-btn>
-              </v-form>
-            </v-col>
-          </v-row>
+          </v-col>
         </v-card>
       </v-col>
+
+      <v-dialog v-model="terms" width="70%">
+        <v-card>
+          <v-card-title class="text-h6"> Terms </v-card-title>
+          
+            <Latin/>
+          
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text color="black" @click="terms = false"> Ok </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="conditions" width="70%">
+        <v-card>
+          <v-card-title class="text-h6"> Conditions </v-card-title>
+          
+            <Latin/>
+          
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text color="black" @click="conditions = false"> Ok </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-row>
   </div>
 </template>
 
 <script>
+import Latin from "../components/Condition.vue"
+import Pass from "../components/Password.vue"
+import axios from 'axios'
 export default {
-  name: 'SigninPage',
+  components:{
+    Latin,
+    Pass,
+  },
+  name: 'LoginPage',
   data() {
     return {
       show1: false,
       password: 'Password',
+      sponsor:'',
       rules: {
         required: (value) => !!value || 'Required.',
         min: (v) => v.length >= 8 || 'Min 8 characters',
       },
+      Pays: ['France'],
+      roles: ['Client', 'Livreur', 'Restaurateur'],
+      value: 30,
+      rulesAge: [(v) => v > 16 || '16 ans minimum'],
+      conditions: false,
+
+      terms: false,
+      nameRules: [(v) => !!v || 'Required'],
+      emailRules: [
+        (v) => !!v || 'E-mail is required',
+        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+
+      name: '',
+      email: '',
+      password: '',
+      role:'',
     }
+  },
+  methods: {
+    signUp() {
+      let temp
+      if (this.role == 'Client') {
+        temp = 1
+      }
+      else if (this.role == 'Livreur') {
+        temp = 2
+      }
+      else if (this.role == 'Restaurateur') {
+        temp = 3
+      }
+
+
+      
+var axios = require('axios');
+var data = JSON.stringify({
+  email_user: this.email,
+  password_user: this.password,
+  id_role: temp,
+  sponsored_by_user: this.sponsor,
+});
+
+var axios = require('axios');
+var data = JSON.stringify({
+  email_user: this.email,
+  password_user: this.password,
+  id_role: temp,
+  sponsored_by_user: this.sponsor,
+});
+
+var config = {
+  method: 'post',
+  url: 'http://localhost:8000/api/UserAccount',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+  alert('Compte créé')
+})
+.catch(function (error) {
+  console.log(error)
+  alert('Des champs sont vide');
+});
+    },
   },
 }
 </script>

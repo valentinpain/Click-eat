@@ -25,8 +25,8 @@
           <v-col cols="2" class="mt-2">
             <div style="position: relative; display: inline-block;" @click="displayCart">
                 <v-btn class="pink rounded-lg px-2 py-1">
-                  <img src="../assets/Pictures/cart.png" alt="cart_logo" height="25px" />
-                  <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" height="40px" />
+                  <!--<img src="../assets/Pictures/cart.png" alt="cart_logo" height="25px" />-->
+                  <!--<img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" height="40px" />-->
                 </v-btn>
                 <div id="cart" class="dropdown-content white" style="display: none; position: absolute; z-index: 1; width: 100%;">
                   <ul v-if="$store.getters.getCart.length != 0" style="list-style: none">

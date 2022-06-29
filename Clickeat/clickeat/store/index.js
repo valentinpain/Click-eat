@@ -1,5 +1,5 @@
 export const state = () => ({
-  role: 2,
+  role: 1,
   cart: []
 })
 
