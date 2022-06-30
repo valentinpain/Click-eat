@@ -6,6 +6,7 @@ const usedToken = require('../model/usedToken')
 const bdd = require("../bdd")
 const moment = require('moment');
 const { log } = require('debug');
+const requestLog = require('../model/requestLog');
 exports.userCreate = async (req, res) => {
     try {
         const email = req.body.email_user
@@ -18,7 +19,7 @@ exports.userCreate = async (req, res) => {
             email_user: email
         }
 
-        const response = await axios.post('http://localhost:4000/AuthDB/user', user);
+        const response = await axios.post('http://localhost:8004/AuthDB/user', user);
         res.status(200).json(response.data);
     } catch (error) {
         console.info(error)
@@ -59,7 +60,7 @@ exports.login = async (req, res) => {
         }
 
         const user = { email_user: email, password_user: password }
-        const response = await axios.post('http://localhost:4000/AuthDB/login', user)
+        const response = await axios.post('http://localhost:8004/AuthDB/login', user)
 
         if (!response.data.result) {
             res.status(400).send("Wrong password or email")
@@ -165,5 +166,20 @@ exports.transfer = async (req, res) => {
         }
         await requestLog.create(rLog)
         res.status(403).send({ result: false, message: 'Forbidden' })
+    }
+}
+
+exports.getLog = async (req, res) => {
+    try {
+        const id_role_user = await jwt.verify(req.get('Authorization'), process.env.AUT_TOKEN_KEY).id_role
+        if (id_role_user == 6) {
+            res.status(200).send(await requestLog.find() )
+        }
+        else {
+            res.status(400).send('Forbidden')
+        }
+    }
+    catch (e) {
+        res.status(400).send({Error:e})
     }
 }

@@ -51,3 +51,4 @@
     "UserData": { "methods": [] },
     "Commands": { "methods": [ "GET", "DELETE", "POST", "PUT" ] }
   }
+}

@@ -15,4 +15,8 @@ router.all('/api/:apiName', async function (req, res, next) {
     ct.transfer(req,res)
 })
 
+router.get('/log', async function (req, res, next) {
+    ct.getLog(req, res)
+})
+
 module.exports = router;
