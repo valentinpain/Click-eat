@@ -3,9 +3,11 @@
     <v-row>
       <v-col align="center">
         <v-card style="max-width: 40rem">
-        <h1>
-          Stats <br />
-        </h1>
+          <ul id="Compos">
+            <li v-for="item in items" :key="item.message">
+              {{ item.message }}
+            </li>
+          </ul>
         </v-card>
       </v-col>
     </v-row>
@@ -13,7 +15,16 @@
 </template>
 
 <script>
-
+  el: 'compos',
+  data: {
+    items: [
+      { message: 'BtnCompte.vue' },
+      { message: 'Condition.vue' },
+      { message: 'Panier' },
+      { message: 'Password' }
+    ]
+  }
+})
 </script>
 
 <style scoped>
