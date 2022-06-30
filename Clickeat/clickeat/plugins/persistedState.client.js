@@ -1,5 +1,4 @@
-import createPersistedState from 'vuex-persistedstate'
+//import createPersistedState from 'vuex-persistedstate'
 
-export default ({ store }) => {
-  createPersistedState()(store)
-}
+//export default ({ store }) => {
+  //createPersistedState()(store)}
