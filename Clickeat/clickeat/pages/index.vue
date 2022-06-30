@@ -7,15 +7,17 @@
             <v-col class="p-0" style="position: relative">
               <img :src="require('./../assets/Pictures/home.png')" alt="picture_food-delivery" style="width: 86%; z-index: 2"/>
               <div style="position: absolute; right: 10%; top: 10%">
-                <p class="text-h3 font-italic mb-10"><span class="blue--text font-weight-black" style="font-size: 100px">COMMANDEZ</span> chez nous</p>
-                <p class="text-h3 font-italic mb-10"><span class="blue--text font-weight-black" style="font-size: 100px">RECEVEZ</span> chez vous</p>
-                <p class="text-h3 font-italic mb-10"><span class="blue--text font-weight-black" style="font-size: 100px">DÉGUSTEZ</span> maintenant</p>
+                <p class="text-h3 font-italic mb-10 hidden-md-and-down"><span class="blue--text font-weight-black" style="font-size: 100px">COMMANDEZ</span> chez nous</p>
+                <p class="text-h3 font-italic mb-10 hidden-md-and-down"><span class="blue--text font-weight-black" style="font-size: 100px">RECEVEZ</span> chez vous</p>
+                <p class="text-h3 font-italic mb-10 hidden-md-and-down"><span class="blue--text font-weight-black" style="font-size: 100px">DÉGUSTEZ</span> maintenant</p>
+
               </div>
             </v-col>
           </v-row>
         </div>
         <div v-if="role == 1" class="mb-16">
-          <h2 class="text-h2 mb-10">Nos restaurants partenaires</h2>
+          <h2 class="text-h2 mb-10 hidden-md-and-down ">Nos restaurants partenaires</h2>
+          <h4 class="text-h4 mb-10 hidden-md-and-up ">Nos restaurants partenaires</h4>
           <v-row no-gutters style="height: 60px">
             <v-col
               v-for="(restaurant, index) in restaurants"
