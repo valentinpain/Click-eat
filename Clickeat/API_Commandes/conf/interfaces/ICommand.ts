@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 
-interface IAvailable {
+interface ICommand {
   user: Object;
   articles: Array<Object>;
-  validated: Boolean;
+  total: number;
+  validated: boolean;
 }
 
-export default IAvailable
+export default ICommand

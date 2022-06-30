@@ -37,7 +37,17 @@ deliveryRouter.get('/accepted/:user_id', function(req: express.Request, res: exp
 deliveryRouter.get('/idle/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
     const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
 
-    Delivery.find({"command.user._id": id, status: "idle"}, (err: Error, data: any) => {
+    Delivery.find({userId: id, status: "idle"}, (err: Error, data: any) => {
+    if (err) console.log(err)
+    else {
+      res.send(data)
+    }
+    });
+  });
+
+  deliveryRouter.get('/new/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
+
+    Delivery.find({userId: parseInt(req.params.user_id), status: "Nouvelle livraison"}, (err: Error, data: any) => {
     if (err) console.log(err)
     else {
       res.send(data)
@@ -60,9 +70,7 @@ deliveryRouter.get('/delivered/:user_id', function(req: express.Request, res: ex
 
   /* GET gets every delivery in the database of an user. */
 deliveryRouter.get('/user/:user_id', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.user_id)
-
-    Delivery.find({"command.user._id": id}, (err: Error, data: any) => {
+    Delivery.find({userId: req.params.user_id}, (err: Error, data: any) => {
     if (err) console.log(err)
     else {
       res.send(data)
@@ -72,7 +80,7 @@ deliveryRouter.get('/user/:user_id', function(req: express.Request, res: express
 
 /* POST creates a new delivery for a user. */
 deliveryRouter.post('/', function(req: express.Request, res: express.Response, next: express.NextFunction) {
-  new Delivery({command: req.body.command, status: req.body.status, address: req.body.address}).save((err: any) => {
+  new Delivery({userId: req.body.userId, hourStart: req.body.hourStart, hourEnd: req.body.hourEnd, command: req.body.command, status: req.body.status, address: req.body.address}).save((err: any) => {
       if (err) res.status(404).send(err)
       else {
         res.send("Création réussie !")

@@ -1,5 +1,7 @@
 export const state = () => ({
-  role: 1,
+  userEmail: "",
+  userId: 0,
+  role: 0,
   cart: []
 })
 
@@ -15,6 +17,12 @@ export const mutations = {
   },
   setRole(state, role){
     state.role = role
+  },
+  setUserEmail(state, userEmail){
+    state.userEmail = userEmail
+  },
+  setUserId(state, userId){
+    state.userId = userId
   }
 }
 
@@ -24,5 +32,11 @@ export const getters = {
   },
   getRole(state){
     return state.role;
+  },
+  getUserEmail(state){
+    return state.userEmail
+  },
+  getUserId(state){
+    return state.userId
   }
 }

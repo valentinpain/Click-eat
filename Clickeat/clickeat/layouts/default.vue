@@ -28,7 +28,7 @@
                   <img src="../assets/Pictures/cart.png" alt="cart_logo" style="width: 20%" />
                   <span class="text-h6 white--text font-weight-bold">Panier</span>
                 </v-btn>
-                <div id="cart" class="dropdown-content white" style="display: none; position: absolute; z-index: 1; width: 100%;">
+                <div id="cart" class="dropdown-content white" style="display: none; position: absolute; z-index: 20; width: 100%;">
                   <ul v-if="$store.getters.getCart.length != 0" style="list-style: none">
                     <li v-for="(article, index) in $store.getters.getCart" :key="index" class="white">
                       <v-row class="mt-2">
@@ -65,11 +65,17 @@
 
             <!-- Compte -->
             <v-col cols="1" class="mt-2">
-              <v-btn to="/compte" class="orange">
+              <v-btn v-if="$store.getters.getUserEmail != ''" to='/compte' class="orange">
                 <v-icon color="white">
                   mdi-account
                 </v-icon>
                 <span class="text-h6 white--text font-weight-bold">Mon compte</span>
+              </v-btn>
+              <v-btn v-else to='/inscription' class="black">
+                <v-icon color="white">
+                  mdi-account
+                </v-icon>
+                <span class="text-h6 white--text font-weight-bold">Inscription</span>
               </v-btn>
             </v-col>
             
@@ -161,16 +167,13 @@ export default {
       displayCart(){
         const elementState = document.getElementById('cart').style.display
 
-        if(elementState === 'block'){
-          document.getElementById('cart').style.display = 'none'
-        } else {
-          document.getElementById('cart').style.display = 'block'
-        }
+        if(elementState === 'block') document.getElementById('cart').style.display = 'none'
+        else document.getElementById('cart').style.display = 'block'
       },
 
       removeArticle(article, index){
         this.$store.commit("removeArticle", index)
-        this.$axios.delete('http://localhost:5000/articles/cart/delete/' + article._id).then(function (){
+        this.$axios.delete('http://localhost:8000/articles/cart/delete/' + article._id).then(function (){
         })
       },
 
@@ -185,13 +188,13 @@ export default {
       },
       createCommand() {
         this.command = {
-          userId: 1,
+          user: {_id: this.$store.getters.getUserId},
           articles: this.$store.getters.getCart,
-          validated: "En cours",
-          date: new Date()
+          total: this.totalCart(),
+          validated: false,
         }
 
-        this.$axios.post('http://localhost:6000/commands/create', this.command)
+        this.$axios.post('http://localhost:8001/commands', this.command)
         window.location.href = "http://localhost:3000/commande"
       },
 

@@ -12,22 +12,23 @@ exports.userCreate = async (req, res) => {
 
     try {
 
+        console.log(req.body)
 
         const email = req.body.email_user
         const role = req.body.id_role
         const password = await c.hash(req.body.password_user, 10)
-        const uniqueEmail = await User.findOne({ where: { email_user: email } })
+        //const uniqueEmail = await User.findOne({ where: { email_user: email } })
         console.log(email)
         const sponsored = req.body.sponsored_by_user
-        const sponsorExist = await User.findOne({ where: { email_user: sponsored } })
-        if (sponsored && !sponsorExist) {
+        //const sponsorExist = await User.findOne({ where: { email_user: sponsored } })
+        /* if (sponsored && !sponsorExist) {
             res.status(400).send("Sponsor isn't empty and doesn't exist")
             return
         }
         if (!password || !email || uniqueEmail) {
             res.status(400).send("Password or email cannot be empty. Or email is already used")
             return
-        }
+        } */
         const user = {
             password_user: password,
             email_user: email,
@@ -35,8 +36,9 @@ exports.userCreate = async (req, res) => {
             sponsored_by_user: sponsored
         }
         console.log(user)
-        await User.create(user)
-        res.send(user)
+        User.create(user)
+
+        res.send(await User.findOne({ where: { email_user: email } }))
     }
     catch (e) {
         console.info(e)
@@ -48,8 +50,7 @@ exports.userUpdate = async (req, res) => {
 
     const email = req.body.email_user
     const role = req.body.id_role
-    const id = req.body.id_user
-    //penser � rajouter une partie pour hasher le nouveau mdp
+    const id = req.params.id
     const password = req.body.password_user
 
     if (!id || !email) {
@@ -80,7 +81,7 @@ exports.userUpdate = async (req, res) => {
 }
 
 exports.userDelete = async (req, res) => {
-    const id = req.body.id_user
+    const id = req.params.id
 
     if (!id ) {
         res.status(400).send("id cannot be empty.")
@@ -104,21 +105,16 @@ exports.userDelete = async (req, res) => {
 }
 
 exports.userGet = async (req, res) => {
-    const id = req.body.id_user
+    const email = req.params.email
 
-    if (!id) {
+    if (!email) {
         res.status(400).send("id cannot be empty.")
-
     }
 
+    console.log(email)
+
     try {
-        const user = await User.findAll({
-            where: {
-                id_user: {
-                    [Op.eq]: id
-                }
-            }
-        })
+        const user = await User.findOne({ where: { email_user: email }})
         res.json({user})
     }
     catch (e) {

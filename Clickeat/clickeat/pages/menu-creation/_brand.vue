@@ -49,7 +49,7 @@
                 <v-hover v-slot="{ hover }">
                   <v-card @click="addToMenu(article)" :elevation="hover ? 5 : 2" style="height: 50px; cursor: pointer">
                     <v-col>
-                      <p class="text-h6 font-weight-bold ml-2">{{ article.name }}</p>
+                      <p class="text-h6 font-weight-bold ml-2">{{ article.name + ' (' + article.price + '€)' }}</p>
                     </v-col>
                   </v-card>
                 </v-hover>

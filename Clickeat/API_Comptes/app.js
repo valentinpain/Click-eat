@@ -7,8 +7,11 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/AuthDB');
 
+var cors = require('cors')
+
 var app = express();
 
+app.use(cors())
 app.use(function (req ,res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");

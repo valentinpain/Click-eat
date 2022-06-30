@@ -1,50 +1,21 @@
 <template>
   <div class="Background">
     
-    <v-row>
+    <v-row no-gutters>
       <v-col class="mt-4" align="center" justify="center">
         <v-card style="max-width: 40rem">
           <v-col class="mt-4" align="center" justify="center">
             <h1>Inscription</h1>
             <v-text-field
-              label="Nom"
-              v-model="name"
-              :rules="nameRules"
-              required
-            >
-            </v-text-field>
-            <v-text-field
-              label="Prénom"
-              :rules="nameRules"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="email"
+              v-model="userInfos.email_user"
               :rules="emailRules"
               label="E-mail"
               required
             ></v-text-field>
-              <v-text-field
-              v-model="sponsor"
-              label="Sponsor"
-            ></v-text-field>
             <v-row>
               <v-col>
-                <v-text-field label="Téléphone" :rules="nameRules">
-                  required type="tel"
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="4">
                 <v-select
-                  :items="Pays"
-                  :rules="rules.Pays"
-                  label="Pays"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col>
-                <v-select
-                v-model="role"
+                v-model="userInfos.id_role"
                   :items="roles"
                   :rules="rules.role"
                   label="Qui etes-vous?"
@@ -53,17 +24,8 @@
               </v-col>
             </v-row>
 
-            <v-slider
-              label="Age"
-              v-model="value"
-              :rules="rulesAge"
-              step="1"
-              thumb-label
-              ticks
-            ></v-slider>
-
             <v-text-field
-              v-model="password"
+              v-model="userInfos.password_user"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
               :type="show1 ? 'text' : 'password'"
@@ -75,18 +37,16 @@
             ></v-text-field>
 
             <v-checkbox color="green">
-              <template v-slot:label>
+              <template #label>
                 <div @click.stop="">
-                  Do you accept the
-                  <a href="#" @click.prevent="terms = true">terms</a>
-                  and
-                  <a href="#" @click.prevent="conditions = true">conditions?</a>
+                  J'accepte la
+                  <a href="#" @click.prevent="terms = true">chartre de confidentialité</a>
                 </div>
               </template>
             </v-checkbox>
 
-            <v-btn color="success" class="mr-4" v-on:click="signUp">
-              Inscrire
+            <v-btn color="success" class="mr-4" @click="signUp">
+              M'inscrire
             </v-btn>
           </v-col>
         </v-card>
@@ -116,27 +76,30 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+        <p class="text-h5 font-weight-bold pink--text text-center">{{ messageForm }}</p>
     </v-row>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'LoginPage',
   data() {
     return {
       show1: false,
-      password: 'Password',
-      sponsor:'',
+
+      userInfos: {
+        email_user: '',
+        id_role:'',
+        password_user: '',
+      },
+
+      roles: ['Client', 'Livreur', 'Restaurateur'],
+      value: 30,
       rules: {
         required: (value) => !!value || 'Required.',
         min: (v) => v.length >= 8 || 'Min 8 characters',
       },
-      Pays: ['France'],
-      roles: ['Client', 'Livreur', 'Restaurateur'],
-      value: 30,
-      rulesAge: [(v) => v > 16 || '16 ans minimum'],
       conditions: false,
       content:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
@@ -146,62 +109,33 @@ export default {
         (v) => !!v || 'E-mail is required',
         (v) => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
-
-      name: '',
-      email: '',
-      password: '',
-      role:'',
+      messageForm: "",
     }
   },
   methods: {
     signUp() {
-      let temp
-      if (this.role == 'Client') {
-        temp = 1
-      }
-      else if (this.role == 'Livreur') {
-        temp = 2
-      }
-      else if (this.role == 'Restaurateur') {
-        temp = 3
+      switch(this.userInfos.id_role) {
+        case "Client":
+          this.userInfos.id_role = "1"
+          this.$store.commit('setRole', 1)
+          break;
+        case "Restaurateur":
+          this.userInfos.id_role = "2"
+          this.$store.commit('setRole', 2)
+          break;
+        case "Livreur":
+          this.userInfos.id_role = "3"
+          this.$store.commit('setRole', 3)
+          break;
       }
 
+      this.messageForm = "Création du compte réussie !"
 
-      
-      var axios = require('axios')
-      var data = JSON.stringify({
-        email_user: this.email,
-        password_user: this.password,
-        sponsored_by_user: this.sponsor,
-        id_role: temp,
+      this.$axios.post('http://localhost:8004/AuthDB/user', this.userInfos).then(() => {
+        this.$store.commit("setUserEmail", this.userInfos.email_user)
       })
 
-      var config = {
-        method: 'post',
-        url: 'http://localhost:8000/api/UserAccount',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: data,
-      }
-      axios(config)
-        .then(function (response) {
-          if (
-            response.data ==
-            'Password or email cannot be empty. Or email is already used'
-          ) {
-            alert('Password or email cannot be empty. Or email is already used')
-          }
-          else {
-            alert('Vous êtes bien inscris')
-          }
-          console.log(JSON.stringify(response.data))
-        })
-        
-        .catch(function (error) {
-          console.log(error);
-          alert('Password or email cannot be empty. Or email is already used')
-        });
+       window.location.href = "http://localhost:3000/"
     },
   },
 }

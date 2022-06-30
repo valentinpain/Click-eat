@@ -7,122 +7,12 @@
             <v-col cols="9">
               <v-card>
                 <div class="ml-5 py-5">
-                  <!-- Nom -->
-                    <div class="mb-5">
-                      <h4 class="font-weight-bold text-h4">Nom</h4>
-                      <v-row>
-                        <v-col cols="5">
-                          <p class="ml-5 text-h5">{{ compteInfos.lastName}}</p>
-                        </v-col>
-                        <v-col cols="2" class="d-flex">
-                          <form class="d-flex text-h6">
-                            <v-text-field v-model="newLastName" label="Nom" required/>
-                            <v-btn
-                              class="white--text ml-10 text-h6"
-                              color="blue"
-                              @click="updateUser('lastName')"
-                            >
-                              Envoyer
-                            </v-btn>
-                          </form>
-                        </v-col>
-                      </v-row>
-                    </div>
-                  <!-- Prénom -->
-                    <div class="mb-5">
-                      <h4 class="font-weight-bold text-h4">Prénom</h4>
-                      <v-row>
-                        <v-col cols="5">
-                          <p class="ml-5 text-h5">{{ compteInfos.firstName}}</p>
-                        </v-col>
-                        <v-col cols="2" class="d-flex">
-                          <form class="d-flex text-h6">
-                            <v-text-field v-model="newFirstName" label="Prénom" required/>
-                            <v-btn
-                              class="white--text ml-10 text-h6"
-                              color="blue"
-                              @click="updateUser('firstName')"
-                            >
-                              Envoyer
-                            </v-btn>
-                          </form>
-                        </v-col>
-                      </v-row>
-                    </div>
-                  <!-- Âge -->
-                    <div class="mb-5">
-                      <h4 class="font-weight-bold text-h4">Âge</h4>
-                      <v-row>
-                        <v-col cols="5">
-                          <p class="ml-5 text-h5">{{ compteInfos.age}}</p>
-                        </v-col>
-                        <v-col cols="2" class="d-flex">
-                          <form class="d-flex text-h6">
-                            <v-text-field v-model="newAge" label="Âge" required/>
-                            <v-btn
-                              class="white--text ml-10 text-h6"
-                              color="blue"
-                              @click="updateUser('age')"
-                            >
-                              Envoyer
-                            </v-btn>
-                          </form>
-                        </v-col>
-                      </v-row>
-                    </div>
-                  <!-- Country -->
-                    <div class="mb-5">
-                      <h4 class="font-weight-bold text-h4">Pays</h4>
-                      <v-row>
-                        <v-col cols="5">
-                          <p class="ml-5 text-h5">{{ compteInfos.country}}</p>
-                        </v-col>
-                        <v-col cols="2" class="d-flex">
-                          <form class="d-flex text-h6">
-                          <v-select
-                            :items="['France']"
-                            label="Pays"
-                            dense
-                            outlined
-                          ></v-select>
-                            <v-btn
-                              class="white--text ml-10 text-h6"
-                              color="blue"
-                              @click="updateUser('country')"
-                            >
-                              Envoyer
-                            </v-btn>
-                          </form>
-                        </v-col>
-                      </v-row>
-                    </div>
-                  <!-- Phone -->
-                    <div class="mb-5">
-                      <h4 class="font-weight-bold text-h4">Téléphone</h4>
-                      <v-row>
-                        <v-col cols="5">
-                          <p class="ml-5 text-h5">{{ compteInfos.phone}}</p>
-                        </v-col>
-                        <v-col cols="2" class="d-flex">
-                          <form class="d-flex text-h6">
-                            <v-text-field v-model="newPhone" label="Téléphone" required/>
-                            <v-btn
-                              class="white--text ml-10 text-h6"
-                              color="blue"
-                              @click="updateUser('téléphone')"
-                            >
-                              Envoyer
-                            </v-btn>
-                          </form>
-                        </v-col>
-                      </v-row>
-                    </div>
                   <!-- Mail -->
                     <div class="mb-5">
                       <h4 class="font-weight-bold text-h4">Adresse mail</h4>
                       <v-row>
                         <v-col cols="5">
-                          <p class="ml-5 text-h5">{{ compteInfos.mail}}</p>
+                          <p class="ml-5 text-h5">{{ compteInfos.email_user}}</p>
                         </v-col>
                         <v-col cols="2" class="d-flex">
                           <form class="d-flex text-h6">
@@ -138,16 +28,36 @@
                         </v-col>
                       </v-row>
                     </div>
+                  <!-- Password -->
+                    <div class="mb-5">
+                      <h4 class="font-weight-bold text-h4">Mot de passe</h4>
+                      <v-row>
+                        <v-col cols="5"></v-col>
+                        <v-col cols="2" class="d-flex">
+                          <form class="d-flex text-h6">
+                            <v-text-field v-model="newPassword" label="Mot de passe" required/>
+                            <v-btn
+                              class="white--text ml-10 text-h6"
+                              color="blue"
+                              @click="updateUser('password')"
+                            >
+                              Envoyer
+                            </v-btn>
+                          </form>
+                        </v-col>
+                      </v-row>
+                    </div>
                   <!-- Type -->
                     <div class="mb-5">
                       <h4 class="font-weight-bold text-h4">Niveau du compte</h4>
                       <v-row>
                         <v-col cols="5">
-                          <p class="ml-5 text-h5">{{ compteInfos.type}}</p>
+                          <p class="ml-5 text-h5">{{ compteInfos.id_role}}</p>
                         </v-col>
                       </v-row>
                     </div>
                   </div>
+                  <p class="text-h5 pink--text font-weigth-bold">{{ updateText }}</p>
               </v-card>
             </v-col>
         </v-row>
@@ -199,10 +109,19 @@
           </v-row>
 
         <v-row class="mt-16">
-          <h2 class="text-h2 green--text">Suppression du compte</h2>
+          <h2 class="text-h2 orange--text">Déconnexion du compte</h2>
           <v-col cols="9">
             <v-card class="py-5 ml-5">
-              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="green" @click="deleteAccount">Supprimer mon compte</v-btn>
+              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="orange" @click="logOut">Déconnecter mon compte</v-btn>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <v-row class="mt-16">
+          <h2 class="text-h2 red--text">Suppression du compte</h2>
+          <v-col cols="9">
+            <v-card class="py-5 ml-5">
+              <v-btn class="ml-5 white--text font-weight-bold text-h6" color="red" @click="deleteAccount">Supprimer mon compte</v-btn>
             </v-card>
           </v-col>
         </v-row>
@@ -212,52 +131,96 @@
 </template>
 <script>
 
+
 export default {
   name: "ComptePage",
   data() {
     return {
       compteInfos: {
-        lastName: "Pain",
-        firstName: "Valentin",
-        age: 21,
-        country: "France",
-        phone: "06.63.98.64.95",
-        mail: "valentin.pain@viacesi.fr",
-        type: "utilisateur classique"
       },
-      newLastName: null,
-      newFirstName: null,
-      newAge: null,
-      newCountry: null,
-      newPhone: null,
       newMail: null,
+      newPassword: null,
+      updateText: "",
       emailParrainage: null,
       errorParrainage: "",
     }
   },
   mounted(){
+    this.$axios.get('http://localhost:8004/AuthDB/user/' + this.$store.getters.getUserEmail).then((response) => {
+      this.compteInfos = response.data.user
+
+      switch(this.compteInfos.id_role){
+        case 1:
+          this.compteInfos.id_role = "Compte utilisateur"
+          break;
+        case 2:
+          this.compteInfos.id_role = "Compte restaurateur"
+          break;
+        case 3:
+          this.compteInfos.id_role = "Compte livreur"
+          break;
+      }
+    })
   },
   methods: {
     checkParrainage(){
-      const check = false;
+      let email = null;
+        
+      this.$axios.get('http://localhost:8004/AuthDB/user/' + this.emailParrainage).then((response) => {
+        email = response.data
 
-      if(check){
-        this.errorParrainage = "Félicitations ! Vous parrainez maintenant cet utilisateur, allez en profiter dès maintenant !"
-      } else {
-        this.errorParrainage = "Oh non ! Cette adresse mail n'existe pas ..."
-      }
+        if(email.user){
+          this.errorParrainage = "Félicitations ! Vous parrainez maintenant cet utilisateur, allez en profiter dès maintenant !"
+        } else {
+          this.errorParrainage = "Oh non ! Cette adresse mail n'existe pas ..."
+        }
+        })
     },
 
     resetError(){
       this.errorParrainage = "";
     },
 
-    updateUser(){
-
+    logOut(){
+      this.$store.commit('setUserRole', 0)
+      this.$store.commit('setUserEmail', "")
+      window.location.href = "http://localhost:3000/"
     },
 
     deleteAccount(){
-      
+      this.$store.commit('setUserRole', 0)
+      this.$store.commit('setUserEmail', "")
+      this.$axios.delete('http://localhost:8004/AuthDB/user/' + this.$store.getters.getUserId)
+      window.location.href = "http://localhost:3000/"
+    },
+
+    updateUser(type){
+      switch(type){
+        case "mail":
+          this.$store.commit("setUserEmail", this.newMail)
+          this.compteInfos.email_user = this.newMail
+          break;
+        case "password":
+          this.compteInfos.password_user = this.newPassword
+          break;
+      }
+
+      this.compteInfos.id_role = this.convertRoleIntoNumber(this.compteInfos.id_role)
+
+      this.$axios.put('http://localhost:8004/AuthDB/user/' + this.$store.getters.getUserId, this.compteInfos).then(() => {
+        this.updateText = "Le compte a correctement été modifié !"
+      })
+    },
+
+    convertRoleIntoNumber(role){
+      switch(role){
+        case "Compte utilisateur":
+          return 1;
+        case "Compte restaurateur":
+          return 2;
+        case "Compte livreur":
+          return 3;
+      }
     }
   }
 }

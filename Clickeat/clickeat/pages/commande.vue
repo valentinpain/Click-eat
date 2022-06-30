@@ -6,7 +6,7 @@
         <v-row>
           <v-col>
             <ul style="list-style: none">
-              <li v-for="(article, index) in articles" :key="index" class="mt-5 text-center">
+              <li v-for="(article, index) in command.articles" :key="index" class="mt-5 text-center">
                 <v-card>
                   <v-row>
                     <v-col>
@@ -32,13 +32,13 @@
 
             <hr class="mt-10"/>
 
-            <div v-if="articles.length != 0">
+            <div v-if="command.articles.length != 0">
               <v-row>
                 <v-col cols="9">
                   <p class="font-italic font-weight-bold orange--text text-h3">TOTAL : {{ totalCart() }}€</p>
                 </v-col>
                 <v-col>
-                  <v-btn class="green--text font-weight-bold text-h5" to="/paiement">
+                  <v-btn class="green--text font-weight-bold text-h5" @click="createDelivery">
                     VALIDER MA COMMANDE
                   </v-btn>
                 </v-col>
@@ -61,28 +61,45 @@ export default {
   },
   data() {
     return {
-      command: null,
-      articles: []
+      command: {
+        user: {},
+        articles: [],
+        total: 0,
+        validated: false
+      },
+      delivery: {}
     }
   },
   mounted() {
-    this.$axios.get('http://localhost:8001/commands/user/62b29c49b0b82c062f81345d').then((response) => {
-      this.command = response.data[0]
-      this.articles = response.data[0].articles
-    })
+    this.command.articles = this.$store.getters.getCart
+    this.command.total = this.totalCart()
   },
   methods: {
     removeArticle(index) {
       this.command.articles.splice(index, 1)
-      this.$store.getters.getCart.splice(index, 1)
-      this.articles.splice(index, 1)
-      this.$axios.put('http://localhost:8001/commands/update/' + this.command._id, this.command)
+      this.$store.commit("removeArticle", index)
+      this.$axios.put('http://localhost:8001/commands/' + this.command._id, this.command)
+    },
+
+    createDelivery(){
+      this.delivery = {
+        userId: this.$store.getters.getUserId,
+        hourStart: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        hourEnd: new Date(new Date().getTime() + 20*60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        command: this.command,
+        status: "Nouvelle livraison",
+        address: "test"
+      }
+
+      this.$axios.post('http://localhost:8002/deliveries/', this.delivery)
+
+      window.location.href = "http://localhost:3000/livraison"
     },
     
     totalCart(){
         let sum = 0;
         
-        this.articles.forEach(article => {
+        this.command.articles.forEach(article => {
           sum += article.price; 
         });
 

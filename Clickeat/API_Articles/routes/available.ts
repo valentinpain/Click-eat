@@ -1,6 +1,5 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { idText } from 'typescript';
 import AvailablesArticle from '../conf/schemas/availableSchema';
 
 let availableRouter = express.Router();
