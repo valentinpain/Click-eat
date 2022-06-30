@@ -190,7 +190,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios.get('http://localhost:8000/articles/available/' + this.$route.params.brand).then(response => {
+    this.$axios.get('http://localhost:5000/articles/available/' + this.$route.params.brand).then(response => {
       response.data.forEach(element => {
         switch(element.type) {
           case "plat":
@@ -209,14 +209,23 @@ export default {
       });
   })
   
-  this.$axios.get('http://localhost:8000/articles/restaurant/' + this.$route.params.brand).then((response) => {
+  this.$axios.get('http://localhost:5000/articles/restaurant/' + this.$route.params.brand).then((response) => {
     this.restaurantProperties = response.data[0]
   })
   },
   methods: {
     sendArticleToCart(article){
-      // service vue js
-      this.$axios.post('http://localhost:8000/articles/cart/create/1', article).then(response => {
+      const articleObject = {
+        name: article.name,
+        type: article.type,
+        brand: article.brand,
+        price: article.price,
+        menuId: article.menuId,
+        imagePath: article.imagePath,
+        user_id: 1
+      }
+
+      this.$axios.post('http://localhost:5000/articles/cart/', articleObject).then(response => {
         this.$store.commit("addArticle", response.data)
         })
     },

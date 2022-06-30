@@ -24,8 +24,8 @@
           <v-col cols="4" class="mt-2">
             <div style="position: relative; display: inline-block;" @click="displayCart">
                 <v-btn class="pink rounded-lg px-2 py-1">
-                  <img src="../assets/Pictures/cart.png" alt="cart_logo" height="25px" />
-                  <img src="../assets/Pictures/down-arrow.png" alt="cart_logo" class="ml-5" height="40px" />
+                  <img src="../assets/Pictures/cart.png" alt="cart_logo" style="width: 20%" />
+                  <span class="text-h6 white--text font-weight-bold">Panier</span>
                 </v-btn>
                 <div id="cart" class="dropdown-content white" style="display: none; position: absolute; z-index: 1; width: 100%;">
                   <ul v-if="$store.getters.getCart.length != 0" style="list-style: none">
@@ -284,7 +284,7 @@ export default {
 
       removeArticle(article, index){
         this.$store.commit("removeArticle", index)
-        this.$axios.delete('http://localhost:8000/articles/cart/delete/' + article._id).then(function (){
+        this.$axios.delete('http://localhost:5000/articles/cart/delete/' + article._id).then(function (){
         })
       },
 
@@ -305,7 +305,7 @@ export default {
           date: new Date()
         }
 
-        this.$axios.post('http://localhost:8001/commands/create', this.command)
+        this.$axios.post('http://localhost:6000/commands/create', this.command)
         window.location.href = "http://localhost:3000/commande"
       },
 
