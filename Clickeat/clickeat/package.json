@@ -5,14 +5,20 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "build-bundle":"vue-cli-service build --target lib --name Comp ./components/BtnCompte.vue",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
     "lint": "npm run lint:js && npm run lint:prettier",
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix",
-    "test": "jest"
+    "test": "jest",
+    "main": "./dist/Comp.common.js",
+    "files": ["dist/*",
+    "src/**/*.vue"]
+    
   },
+  
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/google-fonts": "^2.0.0",
