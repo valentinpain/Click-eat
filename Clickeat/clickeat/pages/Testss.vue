@@ -1,6 +1,8 @@
 <template>
-  <div class="Background">
-  </div>
+  <v-btn to="/compte" class="orange">
+    <v-icon color="white"> mdi-account </v-icon>
+    <span class="text-h6 white--text font-weight-bold">oui</span>
+  </v-btn>
 </template>
 
 <script>
