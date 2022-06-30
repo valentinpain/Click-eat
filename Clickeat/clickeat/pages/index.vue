@@ -60,14 +60,22 @@ export default {
   data() {
     return {
       restaurants: [],
-      role: 1,
-      accountName: "McDonalds"
+      accountName: "McDonalds",
+      role: this.$store.getters.getRole,
     }
   },
   mounted(){
+
     this.$axios.get('http://localhost:8000/articles/restaurant/').then((response) => {
       this.restaurants = response.data
     })
+
+    if(this.$store.getters.getUserEmail !== ''){
+      this.$axios.get('http://localhost:8004/AuthDB/user/' + this.$store.getters.getUserEmail).then((response) => {
+          this.$store.commit('setUserId', response.data.user.id_user)
+        }).catch(() => {
+        })
+    }
   }
 }
 </script>

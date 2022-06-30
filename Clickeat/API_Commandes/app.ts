@@ -4,10 +4,13 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 
+import bodyParser from 'body-parser'
+
 import commandsRouter from './routes/commands';
 
 let app = express();
 
+app.use(bodyParser.json())
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

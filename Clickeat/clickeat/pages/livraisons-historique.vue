@@ -13,9 +13,9 @@
                     <v-col cols="9" class="mt-10 mb-5">
                         <v-card class="pl-5 pb-3 pt-5">
                         <h2 class="font-weight-bold text-center mb-10">Livraison du {{ new Date().toLocaleDateString("fr-FR", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}) }}</h2>
-                        <p class="text-h5">Heure de commande : </p>
-                        <p class="text-h5">Heure d'arrivée : </p>
-                        <p class="text-h5">Prix total : {{ sum }}€</p>
+                        <p class="text-h5">Heure de commande : {{ delivery.hourStart }}</p>
+                        <p class="text-h5">Heure d'arrivée : {{ delivery.hourEnd }}</p>
+                        <p class="text-h5">Prix total : {{ delivery.command.total }}€</p>
                         <hr />
                         <p class="text-h5 pink--text font-weight-bold">Statut : {{ delivery.status }}</p>
                         </v-card>
@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios.get('http://localhost:8002/deliveries/user/62b29c49b0b82c062f81345d').then((response) => {
+    this.$axios.get('http://localhost:8002/deliveries/user/' + this.$store.getters.getUserId).then((response) => {
       this.deliveries = response.data
     })
   },

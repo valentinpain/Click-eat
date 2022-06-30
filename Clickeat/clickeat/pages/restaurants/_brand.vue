@@ -190,7 +190,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios.get('http://localhost:5000/articles/available/' + this.$route.params.brand).then(response => {
+    this.$axios.get('http://localhost:8000/articles/available/' + this.$route.params.brand).then(response => {
       response.data.forEach(element => {
         switch(element.type) {
           case "plat":
@@ -209,7 +209,7 @@ export default {
       });
   })
   
-  this.$axios.get('http://localhost:5000/articles/restaurant/' + this.$route.params.brand).then((response) => {
+  this.$axios.get('http://localhost:8000/articles/restaurant/' + this.$route.params.brand).then((response) => {
     this.restaurantProperties = response.data[0]
   })
   },
@@ -225,7 +225,7 @@ export default {
         user_id: 1
       }
 
-      this.$axios.post('http://localhost:5000/articles/cart/', articleObject).then(response => {
+      this.$axios.post('http://localhost:8000/articles/cart/', articleObject).then(response => {
         this.$store.commit("addArticle", response.data)
         })
     },

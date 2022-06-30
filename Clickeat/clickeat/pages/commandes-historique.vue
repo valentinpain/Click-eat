@@ -6,7 +6,7 @@
         <v-row>
           <v-col>
             <ul class="mt-5" style="list-style: none">
-              <li v-for="(command, index) in commands" :key="index">
+              <li v-for="(command, index) in commands" :key="index" class="mb-16">
                 <v-card>
                   <v-row>
                     <v-col cols="9">
@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    this.$axios.get('http://localhost:8001/commands/user/62b29c49b0b82c062f81345d').then((response) => {
+    this.$axios.get('http://localhost:8001/commands/users/' + this.$store.getters.getUserId).then((response) => {
       this.commands = response.data
     })
   },
