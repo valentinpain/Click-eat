@@ -22,7 +22,6 @@ namespace Appli
 	{
 		public MainWindow()
 		{
-			Model.startClient();
 			InitializeComponent();
 			UpdateDatagrid();
 		}

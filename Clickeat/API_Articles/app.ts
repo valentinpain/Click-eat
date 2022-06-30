@@ -8,6 +8,7 @@ import cartRouter from './routes/cart';
 import availableRouter from './routes/available';
 import menuRouter from './routes/menu';
 import restaurantRouter from './routes/restaurant';
+import apiStatsRouter from './routes/apiStats'
 
 let app = express();
 
@@ -22,5 +23,6 @@ app.use('/articles/cart', cartRouter);
 app.use('/articles/available', availableRouter);
 app.use('/articles/menu', menuRouter);
 app.use('/articles/restaurant', restaurantRouter);
+app.use('/articles/stats', apiStatsRouter);
 
 export default app

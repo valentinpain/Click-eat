@@ -11,33 +11,44 @@ namespace Appli
 {
 	public class Model
 	{
-		private static HttpClient client;
-		private static HttpRequestMessage req;
-		public static void startClient() {
-			if (client == null) client = new HttpClient();
-			if (req == null) req = new HttpRequestMessage() { RequestUri = new Uri("http://localhost:4000/AuthDB/user")};
-		}
-
-		public static void DeleteUser(IEnumerable<int> Ids) {
+		
+		public async static void DeleteUser(IEnumerable<int> Ids) {
 			try {
 				foreach (int i in Ids) {
-					req.Method = HttpMethod.Delete;
-					req.Content = JsonContent.Create(new { id_user = i });
-					client.SendAsync(req);
+					using (HttpClient client = new HttpClient())
+					{
+						using (HttpRequestMessage req = new HttpRequestMessage())
+						{
+							req.RequestUri = new Uri("http://localhost:8004/AuthDB/user");
+							req.Method = HttpMethod.Delete;
+							req.Content = JsonContent.Create(new { id_user = i });
+							await client.SendAsync(req);
+						}
+					}
 				}
 			} catch (Exception e) {
 				System.Windows.MessageBox.Show(e.ToString());
 			}
 		}
-		public static void UpdateUser(IEnumerable<User> Users) {
+		public async static void UpdateUser(IEnumerable<User> Users) {
 			try {
 				foreach (User u in Users) {
-					req.Method = HttpMethod.Put;
-					req.Content = JsonContent.Create(new { id_user = u.IdUser,
-														   id_role=u.IdRole, 
-														   email_user=u.Email, 
-														   sponsored_by_user=u.Sponsor });
-					client.SendAsync(req);
+					using (HttpClient client = new HttpClient())
+					{
+						using (HttpRequestMessage req = new HttpRequestMessage())
+						{
+							req.RequestUri = new Uri("http://localhost:8004/AuthDB/user");
+							req.Method = HttpMethod.Put;
+							req.Content = JsonContent.Create(new
+							{
+								id_user = u.IdUser,
+								id_role = u.IdRole,
+								email_user = u.Email,
+								sponsored_by_user = u.Sponsor
+							});
+							await client.SendAsync(req);
+						}
+					}
 				}
 			} catch (Exception e) {
 				System.Windows.MessageBox.Show(e.ToString());
@@ -45,8 +56,11 @@ namespace Appli
 		}
 		public static async Task<IEnumerable<User>> GetData()
 		{
-			var msg = await client.GetStringAsync("http://localhost:4000/AuthDB/data");
-			return JsonConvert.DeserializeObject<IEnumerable<User>>(msg);
+			using (HttpClient client = new HttpClient())
+			{
+				var msg = await client.GetStringAsync("http://localhost:8004/AuthDB/data");
+				return JsonConvert.DeserializeObject<IEnumerable<User>>(msg);
+			}
 		}
 
 

@@ -17,18 +17,18 @@ exports.userCreate = async (req, res) => {
         const email = req.body.email_user
         const role = req.body.id_role
         const password = await c.hash(req.body.password_user, 10)
-        //const uniqueEmail = await User.findOne({ where: { email_user: email } })
+        const uniqueEmail = await User.findOne({ where: { email_user: email } })
         console.log(email)
         const sponsored = req.body.sponsored_by_user
-        //const sponsorExist = await User.findOne({ where: { email_user: sponsored } })
-        /* if (sponsored && !sponsorExist) {
+        const sponsorExist = await User.findOne({ where: { email_user: sponsored ||null} })
+         if (sponsored && !sponsorExist) {
             res.status(400).send("Sponsor isn't empty and doesn't exist")
             return
         }
         if (!password || !email || uniqueEmail) {
             res.status(400).send("Password or email cannot be empty. Or email is already used")
             return
-        } */
+        } 
         const user = {
             password_user: password,
             email_user: email,
@@ -50,8 +50,9 @@ exports.userUpdate = async (req, res) => {
 
     const email = req.body.email_user
     const role = req.body.id_role
-    const id = req.params.id
+    const id = req.body.id_user
     const password = req.body.password_user
+    const sponsor = req.body.sponsored_by_user
 
     if (!id || !email) {
         res.status(400).send("id, password or email cannot be empty.")
@@ -61,7 +62,8 @@ exports.userUpdate = async (req, res) => {
     const user = {
         password_user: password,
         email_user: email,
-        id_role: role
+        id_role: role,
+        sponsored_by_user: sponsor
     }
 
     try {
@@ -81,11 +83,10 @@ exports.userUpdate = async (req, res) => {
 }
 
 exports.userDelete = async (req, res) => {
-    const id = req.params.id
-
+    const id = req.body.id_user
     if (!id ) {
         res.status(400).send("id cannot be empty.")
-
+        return
     }
 
     try {
@@ -105,10 +106,11 @@ exports.userDelete = async (req, res) => {
 }
 
 exports.userGet = async (req, res) => {
-    const email = req.params.email
+    const email = req.body.email
 
     if (!email) {
         res.status(400).send("id cannot be empty.")
+        return
     }
 
     console.log(email)

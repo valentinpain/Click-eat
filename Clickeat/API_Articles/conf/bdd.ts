@@ -12,8 +12,9 @@ export function bddConnect(db: string) {
     let urlMongo = "mongodb://localhost:27017/" + db;
 
     try {
-        mongoose.connect(urlMongo);
-        console.log("Connection sucessful")
+        const db = mongoose.connect(urlMongo);
+        console.log("Connection successful")
+        return db
     } catch(error){
         console.log(error);
     }

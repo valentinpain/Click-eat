@@ -4,7 +4,7 @@ var sequelize = require('../model/sequelize');
 var ct = require('../controller/controller')
 
 /* GET users listing. */
-router.get('/user/:email', function (req, res, next) {
+router.get('/user', function (req, res, next) {
     ct.userGet(req, res)
 })
 
@@ -20,11 +20,11 @@ router.post('/user', function(req, res, next) {
     ct.userCreate(req,res)
 });
 
-router.put('/user/:id', function (req, res, next){
+router.put('/user', function (req, res, next){
     ct.userUpdate(req,res)
 })
 
-router.delete('/user/:id', function (req, res, next) {
+router.delete('/user', function (req, res, next) {
     ct.userDelete(req, res)
 })
 

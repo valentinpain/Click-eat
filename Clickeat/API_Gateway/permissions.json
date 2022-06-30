@@ -1,5 +1,5 @@
 {
-  "1": {
+  "0": {
     "UserAccount": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
     "UserData": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
     "Commands": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
@@ -9,5 +9,45 @@
     "ArticlesData": { "methods": [ "GET" ] },
     "Menu": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
     "Deliveries": { "methods": [ "GET", "DELETE", "POST", "PUT" ] }
+  },
+  "1": {
+    "UserAccount": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "UserData": { "methods": [] },
+    "Commands": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Cart": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "CartData": { "methods": [ "DELETE" ] },
+    "Articles": { "methods": [ "GET" ] },
+    "ArticlesData": { "methods": [ "GET" ] },
+    "Menu": { "methods": [ "GET" ] },
+    "Deliveries": { "methods": [ "POST", "GET", "PUT" ] }
+  },
+  "2": {
+    "UserAccount": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "UserData": { "methods": [] },
+    "Commands": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Cart": { "methods": [] },
+    "CartData": { "methods": [] },
+    "Articles": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "ArticlesData": { "methods": [ "GET" ] },
+    "Menu": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "Deliveries": { "methods": [ "GET", "PUT" ] }
+  },
+  "3": {
+    "UserAccount": { "methods": [ "GET", "DELETE", "POST", "PUT" ] },
+    "UserData": { "methods": [] },
+    "Commands": { "methods": [ "GET", "PUT" ] },
+    "Cart": { "methods": [] },
+    "CartData": { "methods": [] },
+    "Articles": { "methods": [] },
+    "ArticlesData": { "methods": [] },
+    "Menu": { "methods": [] },
+    "Deliveries": { "methods": [ "DELETE", "POST", "GET", "PUT" ] }
+  },
+  "4": {
+    "UserAccount": { "methods": [ "GET", "DELETE", "POST", "PUT" ] }
+  },
+  "5": {
+    "UserAccount": { "methods": [ "GET", "DELETE", "PUT" ] },
+    "UserData": { "methods": [] },
+    "Commands": { "methods": [ "GET", "DELETE", "POST", "PUT" ] }
   }
-}

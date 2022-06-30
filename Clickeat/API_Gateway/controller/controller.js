@@ -129,7 +129,21 @@ exports.logout = async (req, res) => {
 
 exports.transfer = async (req, res) => {
     try {
-        if (perm[req.body.id_role][req.params.apiName].methods?.find(method => method === req.method) ) {
+        const id_role_user = await jwt.verify(req.get('Authorization'), process.env.AUT_TOKEN_KEY).id_role
+        const id_user = await jwt.verify(req.get('Authorization'), process.env.AUT_TOKEN_KEY).id_user
+
+        const rLog = {
+            method: req.method,
+            url: reg.service[req.params.apiName].url,
+            id_role: id_role_user,
+            id_user: id_user,
+            ip: req.ip,
+            At: moment().format()
+        }
+        await requestLog.create(rLog)
+
+
+        if (perm[id_role_user][req.params.apiName].methods?.find(method => method === req.method) ) {
         
             const response = await axios({
                 url: reg.service[req.params.apiName].url,
@@ -143,6 +157,13 @@ exports.transfer = async (req, res) => {
         }
     }
     catch (e) {
+        const rLog = {
+            method: req.method,
+            url: reg.service[req.params.apiName].url,
+            ip: req.ip,
+            At: moment().format()
+        }
+        await requestLog.create(rLog)
         res.status(403).send({ result: false, message: 'Forbidden' })
     }
 }
