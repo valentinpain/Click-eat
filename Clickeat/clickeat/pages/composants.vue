@@ -3,11 +3,12 @@
     <v-row>
       <v-col align="center">
         <v-card style="max-width: 40rem">
-          <ul id="Compos">
-            <li v-for="item in items" :key="item.message">
-              {{ item.message }}
-            </li>
-          </ul>
+  <div 
+    v-for='(product, index) in products' 
+    :key='product.id' 
+  >
+    #{{ index + 1}} - {{ product.name }}
+  </div>
         </v-card>
       </v-col>
     </v-row>
@@ -15,16 +16,7 @@
 </template>
 
 <script>
-  el: 'compos',
-  data: {
-    items: [
-      { message: 'BtnCompte.vue' },
-      { message: 'Condition.vue' },
-      { message: 'Panier' },
-      { message: 'Password' }
-    ]
-  }
-})
+
 </script>
 
 <style scoped>
