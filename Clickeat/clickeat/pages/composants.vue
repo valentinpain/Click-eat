@@ -33,10 +33,15 @@
         <v-row>
           <h3>Condition.vue</h3>
           <br />
-          <h5>
-            Ce composant est un texte de politique de confidentialité
-          </h5>
+          <h5>Ce composant est un texte de politique de confidentialité</h5>
         </v-row>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <a href="https://www.npmjs.com/package/clickeat"
+          >Acceder aux composants</a
+        >
       </v-col>
     </v-row>
   </div>
